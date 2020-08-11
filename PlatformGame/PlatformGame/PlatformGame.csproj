@@ -42,6 +42,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Game1.cs" />
+    <Compile Include="MenuFolder\GameOver.cs" />
+    <Compile Include="MenuFolder\LevelOne.cs" />
+    <Compile Include="MenuFolder\LevelTwo.cs" />
+    <Compile Include="MenuFolder\MainMenu.cs" />
+    <Compile Include="MenuFolder\Menu.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

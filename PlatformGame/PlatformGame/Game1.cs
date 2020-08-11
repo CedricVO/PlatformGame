@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using PlatformGame.MenuFolder;
 
 namespace PlatformGame
 {
@@ -9,13 +10,44 @@ namespace PlatformGame
     /// </summary>
     public class Game1 : Game
     {
+        public enum GameState
+        {
+            MainMenu,
+            LevelOne,
+            LevelTwo,
+            GameOver
+        }
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+        Menu menu;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+        }
+
+        public void StateChange(GameState gameState)
+        {
+            switch (gameState) {
+                case GameState.MainMenu:
+                    this.menu = new MainMenu(GraphicsDevice);
+                    break;
+                case GameState.LevelOne:
+                    this.menu = new LevelOne(GraphicsDevice);
+                    break;
+                case GameState.LevelTwo:
+                    this.menu = new LevelTwo(GraphicsDevice);
+                    break;
+                case GameState.GameOver:
+                    this.menu = new GameOver(GraphicsDevice);
+                    break;
+            }
+
+            menu.Initialize();
+            menu.LoadContent();
         }
 
         /// <summary>
