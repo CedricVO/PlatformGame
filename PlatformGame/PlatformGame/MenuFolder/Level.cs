@@ -8,9 +8,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace PlatformGame.MenuFolder
 {
-    class LevelTwo : Menu
+    class Level : Menu
     {
-        public LevelTwo(GraphicsDevice _graphicsDevice) : base(_graphicsDevice)
+        public Level(GraphicsDevice _graphicsDevice) : base(_graphicsDevice)
         {
         }
 

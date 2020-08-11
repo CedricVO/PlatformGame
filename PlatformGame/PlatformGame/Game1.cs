@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using PlatformGame.GameFolder;
 using PlatformGame.MenuFolder;
 
 namespace PlatformGame
@@ -13,8 +14,7 @@ namespace PlatformGame
         public enum GameState
         {
             MainMenu,
-            LevelOne,
-            LevelTwo,
+            Level,
             GameOver
         }
 
@@ -35,11 +35,8 @@ namespace PlatformGame
                 case GameState.MainMenu:
                     this.menu = new MainMenu(GraphicsDevice);
                     break;
-                case GameState.LevelOne:
-                    this.menu = new LevelOne(GraphicsDevice);
-                    break;
-                case GameState.LevelTwo:
-                    this.menu = new LevelTwo(GraphicsDevice);
+                case GameState.Level:
+                    this.menu = new Level(GraphicsDevice);
                     break;
                 case GameState.GameOver:
                     this.menu = new GameOver(GraphicsDevice);
@@ -60,6 +57,8 @@ namespace PlatformGame
         {
             // TODO: Add your initialization logic here
 
+            menu = new MainMenu(GraphicsDevice);
+
             base.Initialize();
         }
 
@@ -73,6 +72,14 @@ namespace PlatformGame
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+
+            //Load Images + Fonts + Sounds
+            Resources.LoadImages(Content);
+            Resources.LoadFont(Content);
+
+            //Load Menu
+            menu.Initialize();
+            menu.LoadContent();
         }
 
         /// <summary>
@@ -95,6 +102,7 @@ namespace PlatformGame
                 Exit();
 
             // TODO: Add your update logic here
+            menu.Update(gameTime, this);
 
             base.Update(gameTime);
         }
@@ -108,6 +116,7 @@ namespace PlatformGame
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            menu.Draw(spriteBatch);
 
             base.Draw(gameTime);
         }
