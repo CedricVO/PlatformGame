@@ -76,7 +76,7 @@ namespace PlatformGame
             //Load Images + Fonts + Sounds
             Resources.LoadImages(Content);
             Resources.LoadFont(Content);
-
+            Sounds.Load(Content);
             //Load Menu
             menu.Initialize();
             menu.LoadContent();

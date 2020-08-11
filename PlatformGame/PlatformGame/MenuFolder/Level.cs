@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using PlatformGame.GameFolder;
 
 namespace PlatformGame.MenuFolder
 {
@@ -16,7 +17,7 @@ namespace PlatformGame.MenuFolder
 
         public override void Initialize()
         {
-
+            Sounds.stopMusic();
         }
 
         public override void LoadContent()

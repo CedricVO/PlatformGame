@@ -44,3 +44,9 @@
 /processorParam:TextureFormat=Compressed
 /build:File.spritefont
 
+#begin MenuMusic.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:MenuMusic.mp3
+
