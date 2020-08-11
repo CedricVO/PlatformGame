@@ -25,7 +25,7 @@ namespace PlatformGame.MenuFolder
 
         public override void Initialize()
         {
-            Sounds.playMenuMusic(.5f);
+            Sounds.PlayMenuMusic(.5f);
         }
 
         public override void LoadContent()
@@ -40,6 +40,11 @@ namespace PlatformGame.MenuFolder
             if (Keyboard.GetState().IsKeyDown(Keys.Enter))
             {
                 game.StateChange(Game1.GameState.Level);
+            }
+            // REMOVE LATER!!!! GOES TO GAME OVER SCREEN
+            if (Keyboard.GetState().IsKeyDown(Keys.G))
+            {
+                game.StateChange(Game1.GameState.GameOver);
             }
 
             rotation1 += .15f;

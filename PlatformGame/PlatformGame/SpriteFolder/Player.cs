@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using PlatformGame.AnimationFolder;
 using PlatformGame.GameFolder;
 
 namespace PlatformGame.SpriteFolder
@@ -26,23 +27,68 @@ namespace PlatformGame.SpriteFolder
         {
             this.remote = _remote;
             //Run animation
-            //PlayerAnimation.CreateRunAnimation();
+            PlayerAnimation.CreateAnimationRun();
             //Idle animation
-            //PlayerAnimation.CreateAnimationIdle();
+            PlayerAnimation.CreateAnimationIdle();
+            //Death animation
+            PlayerAnimation.CreateAnimationDeath();
+            //Jump animation
+            PlayerAnimation.CreateAnimationJump();
         }
-        public override void Draw(SpriteBatch spritebatch)
+        private void Input(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            if (remote.Right)
+            {
+                velocity.X = (float)gameTime.ElapsedGameTime.TotalMilliseconds / 3;
+
+                PlayerAnimation.currentAnimation = PlayerAnimation.runAnimation;
+                spriteEffect = SpriteEffects.None;
+            }
+            else if (remote.Left)
+            {
+                velocity.X = -(float)gameTime.ElapsedGameTime.TotalMilliseconds / 3;
+
+                PlayerAnimation.currentAnimation = PlayerAnimation.runAnimation;
+                spriteEffect = SpriteEffects.FlipHorizontally;
+            }
+            else velocity.X = 0f;
+
+            if (remote.Jump && hasJumped == false)
+            {
+                position.Y -= 5f;
+                velocity.Y = -9f;
+                hasJumped = true;
+            }
+
+            if (remote.Idle)
+            {
+                PlayerAnimation.currentAnimation = PlayerAnimation.idleAnimation;
+            }
+        }
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(texture, position, PlayerAnimation.currentAnimation.currentFrame.SourceRectangle, Color.White, 0f, new Vector2(0, 0), .5f, spriteEffect, 1f);
         }
 
         public override void Load()
         {
-            throw new NotImplementedException();
+            texture = Resources.LoadFile["spritesheet"];
         }
 
         public override void Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            position += velocity;
+            rectangle = new Rectangle((int)position.X, (int)position.Y, PlayerAnimation.currentAnimation.currentFrame.SourceRectangle.Width, PlayerAnimation.currentAnimation.currentFrame.SourceRectangle.Height);
+
+            Input(gameTime);
+            remote.Update();
+
+            if (velocity.Y < 10)
+            {
+                velocity.Y += 0.4f;
+            }
+
+            PlayerAnimation.currentAnimation.Update(gameTime);
         }
     }
 }

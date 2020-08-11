@@ -36,7 +36,7 @@ namespace PlatformGame
                     this.menu = new MainMenu(GraphicsDevice);
                     break;
                 case GameState.Level:
-                    this.menu = new Level(GraphicsDevice);
+                    this.menu = new PlayState(GraphicsDevice);
                     break;
                 case GameState.GameOver:
                     this.menu = new GameOver(GraphicsDevice);

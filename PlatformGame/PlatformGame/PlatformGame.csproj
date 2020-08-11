@@ -42,17 +42,25 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AnimationFolder\Animation.cs" />
+    <Compile Include="AnimationFolder\AnimationFrame.cs" />
+    <Compile Include="AnimationFolder\PlayerAnimation.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="GameFolder\Camera.cs" />
     <Compile Include="GameFolder\KeyboardClass.cs" />
     <Compile Include="GameFolder\Remote.cs" />
     <Compile Include="GameFolder\Resources.cs" />
     <Compile Include="GameFolder\Sounds.cs" />
+    <Compile Include="LevelFolder\CollitionTiles.cs" />
+    <Compile Include="LevelFolder\Map.cs" />
+    <Compile Include="LevelFolder\Level.cs" />
+    <Compile Include="LevelFolder\Tiles.cs" />
     <Compile Include="MenuFolder\GameOver.cs" />
-    <Compile Include="MenuFolder\Level.cs" />
+    <Compile Include="MenuFolder\PlayState.cs" />
     <Compile Include="MenuFolder\MainMenu.cs" />
     <Compile Include="MenuFolder\Menu.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpriteFolder\Didgeridoo.cs" />
     <Compile Include="SpriteFolder\Player.cs" />
     <Compile Include="SpriteFolder\Sprite.cs" />
   </ItemGroup>

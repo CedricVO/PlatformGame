@@ -12,6 +12,6 @@ namespace PlatformGame.SpriteFolder
     {
         public abstract void Load();
         public abstract void Update(GameTime gameTime);
-        public abstract void Draw(SpriteBatch spritebatch);
+        public abstract void Draw(SpriteBatch spriteBatch);
     }
 }
