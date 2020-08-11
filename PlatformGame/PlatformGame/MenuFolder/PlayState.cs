@@ -14,6 +14,7 @@ namespace PlatformGame.MenuFolder
 {
     class PlayState : Menu
     {
+        int CurrentLevel = 1;
         Player player;
         Didgeridoo didgeridoo;
 
@@ -43,16 +44,29 @@ namespace PlatformGame.MenuFolder
         public override void LoadContent()
         {
             //TODO
+            player.Load();
+
+            background = Resources.LoadFile["background"];
+            //TODO
         }
 
         public override void Update(GameTime gameTime, Game1 game)
         {
+            player.Update(gameTime);
+            
             //TODO
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.Begin();
+            spriteBatch.Draw(background, new Vector2(-60, 0), new Rectangle(0, 0, 1431, 750), Color.White, 0f, new Vector2(0, 0), .65f, SpriteEffects.None, 1f);
+            spriteBatch.End();
+
+            spriteBatch.Begin(); //SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.Transform
             //TODO
+            player.Draw(spriteBatch);
+            spriteBatch.End();
         }
     }
 }

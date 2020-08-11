@@ -27,6 +27,7 @@ namespace PlatformGame
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            graphics.GraphicsProfile = GraphicsProfile.HiDef;
         }
 
         public void StateChange(GameState gameState)

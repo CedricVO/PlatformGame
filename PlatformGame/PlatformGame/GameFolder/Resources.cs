@@ -21,7 +21,7 @@ namespace PlatformGame.GameFolder
             {
                 "background",
                 "didgeridoo",
-                "spritesheet",
+                "spritesheet-2",
             };
 
             foreach (string item in graphics)

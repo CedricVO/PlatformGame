@@ -13,7 +13,7 @@ namespace PlatformGame.SpriteFolder
     class Player : Sprite
     {
         private Texture2D texture;
-        private Vector2 position = new Vector2(100, 100);
+        private Vector2 position = new Vector2(300, 300);
         private Vector2 velocity;
         public Rectangle rectangle;
         private SpriteEffects spriteEffect;
@@ -67,12 +67,12 @@ namespace PlatformGame.SpriteFolder
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, position, PlayerAnimation.currentAnimation.currentFrame.SourceRectangle, Color.White, 0f, new Vector2(0, 0), .5f, spriteEffect, 1f);
+            spriteBatch.Draw(texture, position, PlayerAnimation.currentAnimation.currentFrame.SourceRectangle, Color.White, 0f, new Vector2(0, 0), .5f, spriteEffect, 0f);
         }
 
         public override void Load()
         {
-            texture = Resources.LoadFile["spritesheet"];
+            texture = Resources.LoadFile["spritesheet-2"];
         }
 
         public override void Update(GameTime gameTime)

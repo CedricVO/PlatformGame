@@ -13,62 +13,63 @@ namespace PlatformGame.AnimationFolder
         public static void CreateAnimationIdle()
         {
             idleAnimation = new Animation(50);
-            idleAnimation.AddFrame(new Rectangle(6086, 0, 641, 604));
-            idleAnimation.AddFrame(new Rectangle(6727, 0, 641, 604));
-            idleAnimation.AddFrame(new Rectangle(7368, 0, 641, 604));
-            idleAnimation.AddFrame(new Rectangle(8009, 0, 641, 604));
-            idleAnimation.AddFrame(new Rectangle(8650, 0, 641, 604));
-            idleAnimation.AddFrame(new Rectangle(9291, 0, 641, 604));
-            idleAnimation.AddFrame(new Rectangle(9932, 0, 641, 604));
-            idleAnimation.AddFrame(new Rectangle(10573, 0, 641, 604));
-            idleAnimation.AddFrame(new Rectangle(11214, 0, 641, 604));
-            idleAnimation.AddFrame(new Rectangle(11855, 0, 641, 604));
+            idleAnimation.AddFrame(new Rectangle(0, 186, 213, 186));
+            idleAnimation.AddFrame(new Rectangle(214, 186, 213, 186));
+            idleAnimation.AddFrame(new Rectangle(428, 186, 213, 186));
+            idleAnimation.AddFrame(new Rectangle(642, 186, 213, 186));
+            idleAnimation.AddFrame(new Rectangle(856, 186, 213, 186));
+            idleAnimation.AddFrame(new Rectangle(1070, 186, 213, 186));
+            idleAnimation.AddFrame(new Rectangle(1284, 186, 213, 186));
+            idleAnimation.AddFrame(new Rectangle(1498, 186, 213, 186));
+            idleAnimation.AddFrame(new Rectangle(1712, 186, 213, 186));
+            idleAnimation.AddFrame(new Rectangle(1926, 186, 213, 186));
 
             currentAnimation = idleAnimation;
         }
         public static void CreateAnimationRun()
         {
             runAnimation = new Animation(50);
-            runAnimation.AddFrame(new Rectangle(18906, 0, 641, 604));
-            runAnimation.AddFrame(new Rectangle(19547, 0, 641, 604));
-            runAnimation.AddFrame(new Rectangle(20188, 0, 641, 604));
-            runAnimation.AddFrame(new Rectangle(20829, 0, 641, 604));
-            runAnimation.AddFrame(new Rectangle(21470, 0, 641, 604));
-            runAnimation.AddFrame(new Rectangle(22111, 0, 641, 604));
-            runAnimation.AddFrame(new Rectangle(22752, 0, 641, 604));
-            runAnimation.AddFrame(new Rectangle(23393, 0, 641, 604));
+            runAnimation.AddFrame(new Rectangle(0, 558, 213, 168));
+            runAnimation.AddFrame(new Rectangle(214, 558, 213, 168));
+            runAnimation.AddFrame(new Rectangle(428, 558, 213, 168));
+            runAnimation.AddFrame(new Rectangle(642, 558, 213, 168));
+            runAnimation.AddFrame(new Rectangle(856, 558, 213, 168));
+            runAnimation.AddFrame(new Rectangle(1070, 558, 213, 168));
+            runAnimation.AddFrame(new Rectangle(1284, 558, 213, 168));
+            runAnimation.AddFrame(new Rectangle(1498, 558, 213, 168));
 
             currentAnimation = runAnimation;
         }
         public static void CreateAnimationJump()
         {
             jumpAnimation = new Animation(50);
-            jumpAnimation.AddFrame(new Rectangle(12496, 0, 641, 604));
-            jumpAnimation.AddFrame(new Rectangle(13137, 0, 641, 604));
-            jumpAnimation.AddFrame(new Rectangle(13778, 0, 641, 604));
-            jumpAnimation.AddFrame(new Rectangle(14419, 0, 641, 604));
-            jumpAnimation.AddFrame(new Rectangle(15060, 0, 641, 604));
-            jumpAnimation.AddFrame(new Rectangle(15701, 0, 641, 604));
-            jumpAnimation.AddFrame(new Rectangle(16342, 0, 641, 604));
-            jumpAnimation.AddFrame(new Rectangle(16983, 0, 641, 604));
-            jumpAnimation.AddFrame(new Rectangle(17624, 0, 641, 604));
-            jumpAnimation.AddFrame(new Rectangle(18265, 0, 641, 604));
+            jumpAnimation.AddFrame(new Rectangle(0, 372, 213, 372));
+            jumpAnimation.AddFrame(new Rectangle(214, 372, 213, 372));
+            jumpAnimation.AddFrame(new Rectangle(428, 372, 213, 372));
+            jumpAnimation.AddFrame(new Rectangle(642, 372, 213, 372));
+            jumpAnimation.AddFrame(new Rectangle(856, 372, 213, 372));
+            jumpAnimation.AddFrame(new Rectangle(1070, 372, 213, 372));
+            jumpAnimation.AddFrame(new Rectangle(1284, 372, 213, 372));
+            jumpAnimation.AddFrame(new Rectangle(1498, 372, 213, 372));
+            jumpAnimation.AddFrame(new Rectangle(1712, 372, 213, 372));
+            jumpAnimation.AddFrame(new Rectangle(1926, 372, 213, 372));
 
             currentAnimation = jumpAnimation;
         }
         public static void CreateAnimationDeath()
         {
             deathAnimation = new Animation(50);
-            deathAnimation.AddFrame(new Rectangle(0, 0, 605, 604));
-            deathAnimation.AddFrame(new Rectangle(605, 0, 605, 604));
-            deathAnimation.AddFrame(new Rectangle(1210, 0, 605, 604));
-            deathAnimation.AddFrame(new Rectangle(1815, 0, 605, 604));
-            deathAnimation.AddFrame(new Rectangle(2420, 0, 605, 604));
-            deathAnimation.AddFrame(new Rectangle(3025, 0, 605, 604));
-            deathAnimation.AddFrame(new Rectangle(3630, 0, 605, 604));
-            deathAnimation.AddFrame(new Rectangle(4235, 0, 605, 604));
-            deathAnimation.AddFrame(new Rectangle(4840, 0, 605, 604));
-            deathAnimation.AddFrame(new Rectangle(5445, 0, 605, 604));
+            deathAnimation.AddFrame(new Rectangle(0, 0, 200, 186));
+            deathAnimation.AddFrame(new Rectangle(200, 0, 200, 186));
+            deathAnimation.AddFrame(new Rectangle(400, 0, 200, 186));
+            deathAnimation.AddFrame(new Rectangle(600, 0, 200, 186));
+            deathAnimation.AddFrame(new Rectangle(800, 0, 200, 186));
+            deathAnimation.AddFrame(new Rectangle(1000, 0, 200, 186));
+            deathAnimation.AddFrame(new Rectangle(1200, 0, 200, 186));
+            deathAnimation.AddFrame(new Rectangle(1400, 0, 200, 186));
+            deathAnimation.AddFrame(new Rectangle(1600, 0, 200, 186));
+            deathAnimation.AddFrame(new Rectangle(1800, 0, 200, 186));
+            deathAnimation.AddFrame(new Rectangle(2000, 0, 200, 186));
 
             currentAnimation = deathAnimation;
         }
