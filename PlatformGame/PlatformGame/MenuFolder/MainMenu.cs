@@ -12,6 +12,9 @@ namespace PlatformGame.MenuFolder
 {
     class MainMenu : Menu
     {
+        private float rotation = 0f;
+        private int positionX = 400;
+        
         public MainMenu(GraphicsDevice _graphicsDevice) : base(_graphicsDevice) { }
 
         public override void Initialize()
@@ -32,6 +35,12 @@ namespace PlatformGame.MenuFolder
             {
                 game.StateChange(Game1.GameState.Level);
             }
+
+            rotation += .1f;
+
+            if (positionX >= 800)
+                positionX = 0;
+            else positionX += 3;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -41,7 +50,7 @@ namespace PlatformGame.MenuFolder
             spriteBatch.DrawString(Resources.font, "Dodge The Didgeridoo", new Vector2(50, 50), Color.DeepPink, 0, new Vector2(0, 0), 1.3f, SpriteEffects.None, 1.0f);
             spriteBatch.DrawString(Resources.font, "Press Enter to start", new Vector2(190, 180), Color.Black, 0, new Vector2(0, 0), .8f, SpriteEffects.None, 1.0f);
             spriteBatch.DrawString(Resources.font, "Esc to Quit", new Vector2(20, 450), Color.Red, 0, new Vector2(0, 0), .4f, SpriteEffects.None, 1.0f);
-            spriteBatch.Draw(Resources.LoadFile["didgeridoo"], new Vector2(400, 250), new Rectangle(0, 0, 545, 60), Color.White, 0, new Vector2(0, 0), .6f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(Resources.LoadFile["didgeridoo"], new Vector2(positionX, 300), new Rectangle(0, 0, 545, 60), Color.White, rotation, new Vector2(545/2, 60/2), .6f, SpriteEffects.None, 0f);
             //base.Draw(spriteBatch);
             spriteBatch.End();
         }
