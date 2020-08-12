@@ -63,6 +63,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpriteFolder\Didgeridoo.cs" />
+    <Compile Include="SpriteFolder\DidgeridooSpawner.cs" />
     <Compile Include="SpriteFolder\Player.cs" />
     <Compile Include="SpriteFolder\Sprite.cs" />
   </ItemGroup>

@@ -16,7 +16,7 @@ namespace PlatformGame.MenuFolder
     {
         int currentLevel = 1;
         Player player;
-        Didgeridoo didgeridoo;
+        DidgeridooSpawner didgeridooSpawner;
 
         Map map;
 
@@ -37,6 +37,7 @@ namespace PlatformGame.MenuFolder
             map = new Map();
             remote = new KeyboardClass();
             player = new Player(remote);
+            didgeridooSpawner = new DidgeridooSpawner();
             this.camera = new Camera(graphicsDevice.Viewport);
             Sounds.PlayLevelMusic(.2f);
         }
@@ -47,6 +48,8 @@ namespace PlatformGame.MenuFolder
             map.setLevel(currentLevel);
             map.GenerateLevel();
             player.Load();
+            //LOAD didgeridoos
+            didgeridooSpawner.Load();
 
             background = Resources.LoadFile["background"];
 
@@ -57,6 +60,9 @@ namespace PlatformGame.MenuFolder
         public override void Update(GameTime gameTime, Game1 game)
         {
             player.Update(gameTime);
+            //UPDATE didgeridoos
+            didgeridooSpawner.SpawnDidgeridoos(currentLevel);
+            didgeridooSpawner.Update(gameTime);
 
             foreach (CollitionTiles item in map.LevelCurrent.CollitionTiles)
             {
@@ -76,15 +82,18 @@ namespace PlatformGame.MenuFolder
             spriteBatch.Draw(background, new Vector2(-60, 0), new Rectangle(0, 0, 1431, 750), Color.White, 0f, new Vector2(0, 0), .65f, SpriteEffects.None, 1f);
             spriteBatch.End();
 
-            //spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.Transform);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.Transform);
             //FOR DEBUGGING COLLISION
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, null, null, null, null, camera.Transform);
-            RasterizerState state = new RasterizerState();
-            state.FillMode = FillMode.WireFrame;
+            //spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, null, null, null, null, camera.Transform);
+            //RasterizerState state = new RasterizerState();
+            //state.FillMode = FillMode.WireFrame;
             //END DEBUGGING COLLISION
             map.DrawLevel(spriteBatch);
             //TODO
             player.Draw(spriteBatch);
+            //DRAW didgeridoos
+            didgeridooSpawner.Draw(spriteBatch);
+
             spriteBatch.End();
         }
     }
