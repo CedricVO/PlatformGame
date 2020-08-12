@@ -62,12 +62,12 @@ namespace PlatformGame.MenuFolder
                 substractY2 = !substractY2;
 
             if (substractX2)
-                positionX2 += 2;
-            else positionX2 -= 2;
+                positionX2 += 4;
+            else positionX2 -= 4;
 
             if (substractY2)
-                positionY2 += 4;
-            else positionY2 -= 4;
+                positionY2 += 2;
+            else positionY2 -= 2;
         }
 
         public override void Draw(SpriteBatch spriteBatch)

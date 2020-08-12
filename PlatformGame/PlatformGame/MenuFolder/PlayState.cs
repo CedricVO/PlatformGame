@@ -24,8 +24,8 @@ namespace PlatformGame.MenuFolder
         Remote remote;
         GraphicsDevice graphicsDevice;
 
-        public static int levelWidth;
-        public static int levelHeight;
+        //public static int levelWidth;
+        //public static int levelHeight;
         public PlayState(GraphicsDevice _graphicsDevice) : base(_graphicsDevice)
         {
             this.graphicsDevice = _graphicsDevice;
@@ -44,35 +44,52 @@ namespace PlatformGame.MenuFolder
 
         public override void LoadContent()
         {
-            //TODO
             map.setLevel(currentLevel);
             map.GenerateLevel();
             player.Load();
-            //LOAD didgeridoos
             didgeridooSpawner.Load();
 
             background = Resources.LoadFile["background"];
 
-            levelWidth = map.LevelCurrent.Width;
-            levelHeight = map.LevelCurrent.Height;
+            //levelWidth = map.LevelCurrent.Width;
+            //levelHeight = map.LevelCurrent.Height;
         }
 
         public override void Update(GameTime gameTime, Game1 game)
         {
             player.Update(gameTime);
-            //UPDATE didgeridoos
             didgeridooSpawner.SpawnDidgeridoos(currentLevel);
             didgeridooSpawner.Update(gameTime);
 
+            //Collision with the map
             foreach (CollitionTiles item in map.LevelCurrent.CollitionTiles)
             {
                 player.Collision(item.Rectangle, map.LevelCurrent.Width, map.LevelCurrent.Height);
                 camera.Update(player.Position, map.LevelCurrent.Width, map.LevelCurrent.Height);
             }
 
+            //Collision with Didgeridoos
+            //foreach (var item in didgeridooSpawner.didgeridoos)
+            //{
+            //    player.DidgeridooCollision(item.rectangle);
+            //}
+
             if (player.isDead)
             {
                 game.StateChange(Game1.GameState.GameOver);
+            }
+
+            PostUpdate(gameTime);
+        }
+
+        public void PostUpdate(GameTime gameTime)
+        {
+            foreach (var item in didgeridooSpawner.didgeridoos)
+            {
+                if (player.rectangle.Intersects(item.Rectangle))
+                {
+                    item.OnCollide(player);
+                }
             }
         }
 

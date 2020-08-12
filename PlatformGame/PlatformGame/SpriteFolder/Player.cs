@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using PlatformGame.AnimationFolder;
 using PlatformGame.CollisionFolder;
 using PlatformGame.GameFolder;
+using System.Diagnostics;
 
 namespace PlatformGame.SpriteFolder
 {
@@ -20,14 +21,22 @@ namespace PlatformGame.SpriteFolder
         private SpriteEffects spriteEffect;
         private bool hasJumped = false;
         public bool isDead = false;
+        private bool getsDamage = false;
+        private bool immune = false;
         private bool deathAnimationPlaying = false;
+        private Color playerColor = Color.White;
+        private bool colorSwitch = true;
+        private float waitSec = 0;
         Remote remote;
+
+        Lives lives;
         public Vector2 Position
         {
             get { return position; }
         }
         public Player(Remote _remote)
         {
+            lives = new Lives();
             this.remote = _remote;
             //Run animation
             PlayerAnimation.CreateAnimationRun();
@@ -69,13 +78,14 @@ namespace PlatformGame.SpriteFolder
                 PlayerAnimation.currentAnimation = PlayerAnimation.idleAnimation;
             }
 
-            if (remote.Death && deathAnimationPlaying == false)
-            {
-                deathAnimationPlaying = true;
-            }
             if (deathAnimationPlaying)
             {
-                PlayerAnimation.currentAnimation = PlayerAnimation.deathAnimation;
+                PlayerAnimation.currentAnimation = PlayerAnimation.deathAnimation; //Speelt niet af
+                if (waitSec >= 1.5)
+                {
+                    isDead = true;
+                    waitSec = 0;
+                }
             }
         }
         public void Collision(Rectangle newRectangle, int xOffset, int yOffset)
@@ -115,14 +125,23 @@ namespace PlatformGame.SpriteFolder
                 position.X = xOffset - rectangle.Width;
             }
         }
+        //public void DidgeridooCollision(Rectangle newRectangle)
+        //{
+        //    if (rectangle.TouchTopOf(newRectangle) || rectangle.TouchBottomOf(newRectangle) || rectangle.TouchLeftOf(newRectangle) || rectangle.TouchRightOf(newRectangle))
+        //    {
+        //        this.getsDamage = true;
+        //    }
+        //}
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, position, PlayerAnimation.currentAnimation.currentFrame.SourceRectangle, Color.White, 0f, new Vector2(0, 0), 1f, spriteEffect, 0f);
+            spriteBatch.Draw(texture, position, PlayerAnimation.currentAnimation.currentFrame.SourceRectangle, playerColor, 0f, new Vector2(0, 0), 1f, spriteEffect, 0f);
+            lives.Draw(spriteBatch);
         }
 
         public override void Load()
         {
             texture = Resources.LoadFile["spritesheet-3"];
+            lives.Load();
         }
 
         public override void Update(GameTime gameTime)
@@ -132,18 +151,45 @@ namespace PlatformGame.SpriteFolder
 
             Input(gameTime);
             remote.Update();
+            lives.Update(gameTime, this.position.X, this.position.Y);
+
+            if (getsDamage == true && immune == false)
+            {
+                immune = true;
+                getsDamage = false;
+                Sounds.PlayAuwchSound(.8f);
+                lives.Damage();
+            }
+            if (immune == true)
+            {
+                colorSwitch = !colorSwitch;
+                waitSec += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                Debug.WriteLine($"waitSec: {waitSec}");
+                if (waitSec >= 1)
+                {
+                    waitSec = 0;
+                    immune = false;
+                }
+            }
+
+            if (colorSwitch)
+            {
+                playerColor = Color.White;
+            } else { playerColor = Color.Transparent; }
 
             if (velocity.Y < 10)
             {
                 velocity.Y += 0.4f;
             }
 
-            PlayerAnimation.currentAnimation.Update(gameTime);
-
-            if (position.Y >= 850)
+            if (position.Y >= 850 || lives.DiedOfDamage())
             {
                 deathAnimationPlaying = true;
+                immune = false;
+                playerColor = Color.White;
+                waitSec += (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
+            PlayerAnimation.currentAnimation.Update(gameTime);
         }
     }
 }

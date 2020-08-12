@@ -14,12 +14,18 @@ namespace PlatformGame.GameFolder
         public static Song menuMusic;
         public static SoundEffect gameOver;
         public static Song levelMusic;
+        public static SoundEffect auwch;
 
         public static void Load(ContentManager content)
         {
             menuMusic = content.Load<Song>("MenuMusic");
             gameOver = content.Load<SoundEffect>("GameOverMusic");
             levelMusic = content.Load<Song>("LevelMusic");
+            auwch = content.Load<SoundEffect>("auwch");
+        }
+        public static void PlayAuwchSound(float volume)
+        {
+            auwch.Play(volume, 0, 0);
         }
         public static void PlayMenuMusic(float volume)
         {
