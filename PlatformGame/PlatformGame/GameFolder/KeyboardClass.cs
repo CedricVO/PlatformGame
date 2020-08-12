@@ -13,7 +13,7 @@ namespace PlatformGame.GameFolder
         {
             KeyboardState stateKey = Keyboard.GetState();
 
-            if(stateKey.IsKeyDown(Keys.Left))
+            if (stateKey.IsKeyDown(Keys.Left))
             {
                 Left = true;
                 Idle = false;
@@ -45,6 +45,17 @@ namespace PlatformGame.GameFolder
             if (stateKey.IsKeyUp(Keys.Up))
             {
                 Jump = false;
+            }
+
+            //TESTING
+
+            if (stateKey.IsKeyDown(Keys.Down))
+            {
+                Death = true;
+            }
+            if (stateKey.IsKeyUp(Keys.Down))
+            {
+                Death = false;
             }
         }
     }

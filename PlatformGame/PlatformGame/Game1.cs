@@ -14,8 +14,9 @@ namespace PlatformGame
         public enum GameState
         {
             MainMenu,
-            Level,
-            GameOver
+            PlayState,
+            GameOver,
+            Win
         }
 
         GraphicsDeviceManager graphics;
@@ -36,11 +37,14 @@ namespace PlatformGame
                 case GameState.MainMenu:
                     this.menu = new MainMenu(GraphicsDevice);
                     break;
-                case GameState.Level:
+                case GameState.PlayState:
                     this.menu = new PlayState(GraphicsDevice);
                     break;
                 case GameState.GameOver:
                     this.menu = new GameOver(GraphicsDevice);
+                    break;
+                case GameState.Win:
+                    this.menu = new Win(GraphicsDevice);
                     break;
             }
 

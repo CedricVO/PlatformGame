@@ -14,7 +14,7 @@ namespace PlatformGame.MenuFolder
 {
     class PlayState : Menu
     {
-        int CurrentLevel = 1;
+        int currentLevel = 1;
         Player player;
         Didgeridoo didgeridoo;
 
@@ -25,7 +25,7 @@ namespace PlatformGame.MenuFolder
         GraphicsDevice graphicsDevice;
 
         public static int levelWidth;
-        public static int levelHeigth;
+        public static int levelHeight;
         public PlayState(GraphicsDevice _graphicsDevice) : base(_graphicsDevice)
         {
             this.graphicsDevice = _graphicsDevice;
@@ -38,23 +38,36 @@ namespace PlatformGame.MenuFolder
             remote = new KeyboardClass();
             player = new Player(remote);
             this.camera = new Camera(graphicsDevice.Viewport);
-            Sounds.PlayLevelMusic(.5f);
+            Sounds.PlayLevelMusic(.2f);
         }
 
         public override void LoadContent()
         {
             //TODO
+            map.setLevel(currentLevel);
+            map.GenerateLevel();
             player.Load();
 
             background = Resources.LoadFile["background"];
-            //TODO
+
+            levelWidth = map.LevelCurrent.Width;
+            levelHeight = map.LevelCurrent.Height;
         }
 
         public override void Update(GameTime gameTime, Game1 game)
         {
             player.Update(gameTime);
-            
-            //TODO
+
+            foreach (CollitionTiles item in map.LevelCurrent.CollitionTiles)
+            {
+                player.Collision(item.Rectangle, map.LevelCurrent.Width, map.LevelCurrent.Height);
+                camera.Update(player.Position, map.LevelCurrent.Width, map.LevelCurrent.Height);
+            }
+
+            if (player.isDead)
+            {
+                game.StateChange(Game1.GameState.GameOver);
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -63,7 +76,13 @@ namespace PlatformGame.MenuFolder
             spriteBatch.Draw(background, new Vector2(-60, 0), new Rectangle(0, 0, 1431, 750), Color.White, 0f, new Vector2(0, 0), .65f, SpriteEffects.None, 1f);
             spriteBatch.End();
 
-            spriteBatch.Begin(); //SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.Transform
+            //spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.Transform);
+            //FOR DEBUGGING COLLISION
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, null, null, null, null, camera.Transform);
+            RasterizerState state = new RasterizerState();
+            state.FillMode = FillMode.WireFrame;
+            //END DEBUGGING COLLISION
+            map.DrawLevel(spriteBatch);
             //TODO
             player.Draw(spriteBatch);
             spriteBatch.End();

@@ -13,11 +13,13 @@ namespace PlatformGame.GameFolder
     {
         public static Song menuMusic;
         public static SoundEffect gameOver;
+        public static Song levelMusic;
 
         public static void Load(ContentManager content)
         {
             menuMusic = content.Load<Song>("MenuMusic");
             gameOver = content.Load<SoundEffect>("GameOverMusic");
+            levelMusic = content.Load<Song>("LevelMusic");
         }
         public static void PlayMenuMusic(float volume)
         {
@@ -32,7 +34,9 @@ namespace PlatformGame.GameFolder
         }
         public static void PlayLevelMusic(float volume)
         {
-            //TODO
+            MediaPlayer.Volume = volume;
+            MediaPlayer.Play(levelMusic);
+            MediaPlayer.IsRepeating = true;
         }
         public static void StopMusic()
         {

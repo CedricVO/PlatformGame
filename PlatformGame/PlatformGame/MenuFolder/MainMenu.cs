@@ -39,7 +39,7 @@ namespace PlatformGame.MenuFolder
                 game.Exit();
             if (Keyboard.GetState().IsKeyDown(Keys.Enter))
             {
-                game.StateChange(Game1.GameState.Level);
+                game.StateChange(Game1.GameState.PlayState);
             }
             // REMOVE LATER!!!! GOES TO GAME OVER SCREEN
             if (Keyboard.GetState().IsKeyDown(Keys.G))

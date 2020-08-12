@@ -12,6 +12,8 @@ namespace PlatformGame.GameFolder
         public bool Right { get; set; }
         public bool Idle { get; set; }
         public bool Jump { get; set; }
+        //TESTING
+        public bool Death { get; set; } //REMOVE LATER
         public abstract void Update();
     }
 }
