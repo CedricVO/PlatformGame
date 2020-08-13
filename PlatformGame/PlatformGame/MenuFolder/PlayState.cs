@@ -85,7 +85,6 @@ namespace PlatformGame.MenuFolder
                     if (player.DidgeridooCollision(item.rectangle))
                     {
                         RemoveOneDidgeridoo(item);
-                        RemoveAllDidgeridoos();
                         break;
                     }
                 }
@@ -93,6 +92,17 @@ namespace PlatformGame.MenuFolder
             #endregion
 
             //Collision with Door
+            if (player.rectangle.Intersects(door.Rectangle) && currentLevel == 2)
+            {
+                damageflag = false;
+                waitSec += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (waitSec >= 2)
+                {
+                    waitSec = 0;
+                    game.StateChange(Game1.GameState.Win);
+                }
+            }
+
             if (player.rectangle.Intersects(door.Rectangle) && currentLevel == 1)
             {
                 damageflag = false;
@@ -107,17 +117,6 @@ namespace PlatformGame.MenuFolder
                     map.GenerateLevel();
                     door.Position = new Vector2(1167, 866); //1167, 866
                     player.Position = new Vector2(50, 800);
-                }
-            }
-
-            if (player.rectangle.Intersects(door.Rectangle) && currentLevel == 2)
-            {
-                damageflag = false;
-                waitSec += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                if (waitSec >= 2)
-                {
-                    waitSec = 0;
-                    game.StateChange(Game1.GameState.Win);
                 }
             }
 
