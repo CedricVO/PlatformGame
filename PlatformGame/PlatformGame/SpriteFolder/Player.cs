@@ -27,8 +27,8 @@ namespace PlatformGame.SpriteFolder
         private Color playerColor = Color.White;
         private bool colorSwitch = true;
         private float waitSec = 0;
-        Remote remote;
 
+        Remote remote;
         Lives lives;
         public Vector2 Position
         {
@@ -127,64 +127,16 @@ namespace PlatformGame.SpriteFolder
             }
         }
 
-        #region Didgeridoo Collision 2
-        //private bool IsTouchingLeft(Didgeridoo didgeridoo)
-        //{
-        //    return this.rectangle.Right > didgeridoo.rectangle.Left &&
-        //        this.rectangle.Left < didgeridoo.rectangle.Left &&
-        //        this.rectangle.Bottom > didgeridoo.rectangle.Top &&
-        //        this.rectangle.Top < didgeridoo.rectangle.Bottom;
-        //}
-        //private bool IsTouchingRight(Didgeridoo didgeridoo)
-        //{
-        //    return this.rectangle.Left < didgeridoo.rectangle.Right &&
-        //        this.rectangle.Right > didgeridoo.rectangle.Right &&
-        //        this.rectangle.Bottom > didgeridoo.rectangle.Top &&
-        //        this.rectangle.Top < didgeridoo.rectangle.Bottom;
-        //}
-        //private bool IsTouchingTop(Didgeridoo didgeridoo)
-        //{
-        //    return this.rectangle.Bottom + this.velocity.Y > didgeridoo.rectangle.Top &&
-        //        this.rectangle.Top < didgeridoo.rectangle.Top &&
-        //        this.rectangle.Right > didgeridoo.rectangle.Left &&
-        //        this.rectangle.Left < didgeridoo.rectangle.Right;
-        //}
-        //private bool IsTouchingBottom(Didgeridoo didgeridoo)
-        //{
-        //    return this.rectangle.Top + this.velocity.Y < didgeridoo.rectangle.Bottom &&
-        //        this.rectangle.Bottom > didgeridoo.rectangle.Bottom &&
-        //        this.rectangle.Right > didgeridoo.rectangle.Left &&
-        //        this.rectangle.Left < didgeridoo.rectangle.Right;
-        //}
-
-        //public bool DidgeridooCollision2(Didgeridoo didgeridoo)
-        //{
-        //    if ((this.velocity.X > 0 && this.IsTouchingLeft(didgeridoo)) ||
-        //        (this.velocity.X < 0 && this.IsTouchingRight(didgeridoo)))
-        //    {
-        //        //Touch
-        //        Debug.WriteLine("Touch Left or Right");
-        //        return true;
-        //    }
-        //    if ((this.velocity.Y > 0 && this.IsTouchingTop(didgeridoo)) ||
-        //        this.velocity.Y < 0 && this.IsTouchingBottom(didgeridoo))
-        //    {
-        //        //Touch
-        //        Debug.WriteLine("Touch Top or Bottom");
-        //        return true;
-        //    }
-        //    return false;
-        //}
-        #endregion
-
         #region Didgeridoo Collision Try 1
-        //public void DidgeridooCollision(Rectangle newRectangle)
-        //{
-        //    if (rectangle.TouchTopOf(newRectangle) || rectangle.TouchBottomOf(newRectangle) || rectangle.TouchLeftOf(newRectangle) || rectangle.TouchRightOf(newRectangle))
-        //    {
-        //        this.getsDamage = true;
-        //    }
-        //}
+        public bool DidgeridooCollision(Rectangle newRectangle)
+        {
+            if (this.rectangle.Intersects(newRectangle))
+            {
+                this.getsDamage = true;
+                return true;
+            }
+            return false;
+        }
         #endregion
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -208,10 +160,10 @@ namespace PlatformGame.SpriteFolder
             remote.Update();
             lives.Update(gameTime, this._position.X, this._position.Y);
 
-            if (this.getsDamage && !this.immune)
+            if (getsDamage && !immune)
             {
-                immune = true;
                 getsDamage = false;
+                immune = true;
                 Sounds.PlayAuwchSound(.8f);
                 lives.Damage();
             }
@@ -219,9 +171,10 @@ namespace PlatformGame.SpriteFolder
             {
                 colorSwitch = !colorSwitch;
                 waitSec += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                if (waitSec >= 1)
+                if (waitSec >= .3)
                 {
                     waitSec = 0;
+                    Debug.WriteLine("Nu pas terug damage");
                     immune = false;
                 }
             }
@@ -229,7 +182,8 @@ namespace PlatformGame.SpriteFolder
             if (colorSwitch)
             {
                 playerColor = Color.White;
-            } else { playerColor = Color.Transparent; }
+            }
+            else { playerColor = Color.Transparent; }
 
             if (velocity.Y < 10)
             {
