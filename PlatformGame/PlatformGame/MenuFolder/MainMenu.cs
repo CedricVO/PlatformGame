@@ -42,10 +42,10 @@ namespace PlatformGame.MenuFolder
                 game.StateChange(Game1.GameState.PlayState);
             }
             // REMOVE LATER!!!! GOES TO GAME OVER SCREEN
-            if (Keyboard.GetState().IsKeyDown(Keys.G))
-            {
-                game.StateChange(Game1.GameState.GameOver);
-            }
+            //if (Keyboard.GetState().IsKeyDown(Keys.G))
+            //{
+            //    game.StateChange(Game1.GameState.GameOver);
+            //}
 
             rotation1 += .15f;
             rotation2 += .1f;

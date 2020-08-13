@@ -15,8 +15,11 @@ namespace PlatformGame.MenuFolder
     class PlayState : Menu
     {
         int currentLevel = 1;
+        float waitSec = 0;
+        bool damageflag = true;
         Player player;
         DidgeridooSpawner didgeridooSpawner;
+        Door door;
 
         Map map;
 
@@ -38,16 +41,18 @@ namespace PlatformGame.MenuFolder
             remote = new KeyboardClass();
             player = new Player(remote);
             didgeridooSpawner = new DidgeridooSpawner();
+            door = new Door();
             this.camera = new Camera(graphicsDevice.Viewport);
             Sounds.PlayLevelMusic(.2f);
         }
 
         public override void LoadContent()
         {
-            map.setLevel(currentLevel);
+            map.SetLevel(currentLevel);
             map.GenerateLevel();
             player.Load();
             didgeridooSpawner.Load();
+            door.Load();
 
             background = Resources.LoadFile["background"];
 
@@ -60,6 +65,7 @@ namespace PlatformGame.MenuFolder
             player.Update(gameTime);
             didgeridooSpawner.SpawnDidgeridoos(currentLevel);
             didgeridooSpawner.Update(gameTime);
+            door.Update(gameTime);
 
             //Collision with the map
             foreach (CollitionTiles item in map.LevelCurrent.CollitionTiles)
@@ -68,28 +74,58 @@ namespace PlatformGame.MenuFolder
                 camera.Update(player.Position, map.LevelCurrent.Width, map.LevelCurrent.Height);
             }
 
-            //Collision with Didgeridoos
-            //foreach (var item in didgeridooSpawner.didgeridoos)
+            #region Didgeridoo Collision Try 1
+            //if (damageflag)
             //{
-            //    player.DidgeridooCollision(item.rectangle);
+            //    foreach (var item in didgeridooSpawner.didgeridoos)
+            //    {
+            //        player.DidgeridooCollision(item.rectangle);
+            //    }
             //}
+            #endregion
+
+            #region Didgeridoo Collision Try 2
+            //if (damageflag)
+            //{
+            //    foreach (var item in didgeridooSpawner.didgeridoos)
+            //    {
+            //        player.DidgeridooCollision2(item);
+            //    }
+            //}
+            #endregion
+
+            //Collision with Door
+            if (player.rectangle.Intersects(door.Rectangle) && currentLevel == 1)
+            {
+                damageflag = false;
+                waitSec += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (waitSec >= 2)
+                {
+                    waitSec = 0;
+                    damageflag = true;
+                    RemoveAllDidgeridoos();
+                    currentLevel++;
+                    map.SetLevel(currentLevel);
+                    map.GenerateLevel();
+                    door.Position = new Vector2(1167, 866); //1167, 866
+                    player.Position = new Vector2(50, 800);
+                }
+            }
+
+            if (player.rectangle.Intersects(door.Rectangle) && currentLevel == 2)
+            {
+                damageflag = false;
+                waitSec += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (waitSec >= 2)
+                {
+                    waitSec = 0;
+                    game.StateChange(Game1.GameState.Win);
+                }
+            }
 
             if (player.isDead)
             {
                 game.StateChange(Game1.GameState.GameOver);
-            }
-
-            PostUpdate(gameTime);
-        }
-
-        public void PostUpdate(GameTime gameTime)
-        {
-            foreach (var item in didgeridooSpawner.didgeridoos)
-            {
-                if (player.rectangle.Intersects(item.Rectangle))
-                {
-                    item.OnCollide(player);
-                }
             }
         }
 
@@ -99,19 +135,26 @@ namespace PlatformGame.MenuFolder
             spriteBatch.Draw(background, new Vector2(-60, 0), new Rectangle(0, 0, 1431, 750), Color.White, 0f, new Vector2(0, 0), .65f, SpriteEffects.None, 1f);
             spriteBatch.End();
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.Transform);
+            //spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.Transform);
             //FOR DEBUGGING COLLISION
-            //spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, null, null, null, null, camera.Transform);
-            //RasterizerState state = new RasterizerState();
-            //state.FillMode = FillMode.WireFrame;
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, null, null, null, null, camera.Transform);
+            RasterizerState state = new RasterizerState();
+            state.FillMode = FillMode.WireFrame;
             //END DEBUGGING COLLISION
             map.DrawLevel(spriteBatch);
-            //TODO
             player.Draw(spriteBatch);
+            door.Draw(spriteBatch);
             //DRAW didgeridoos
             didgeridooSpawner.Draw(spriteBatch);
 
             spriteBatch.End();
+        }
+
+        //Probeersel
+        private void RemoveAllDidgeridoos()
+        {
+            int count = didgeridooSpawner.didgeridoos.Count;
+            didgeridooSpawner.didgeridoos.RemoveRange(0, count);
         }
     }
 }

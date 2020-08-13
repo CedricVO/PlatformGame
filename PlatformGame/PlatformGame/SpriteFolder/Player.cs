@@ -15,8 +15,8 @@ namespace PlatformGame.SpriteFolder
     class Player : Sprite
     {
         private Texture2D texture;
-        private Vector2 position = new Vector2(50, 500);
-        private Vector2 velocity;
+        private Vector2 _position = new Vector2(50, 750);
+        public Vector2 velocity;
         public Rectangle rectangle;
         private SpriteEffects spriteEffect;
         private bool hasJumped = false;
@@ -32,7 +32,8 @@ namespace PlatformGame.SpriteFolder
         Lives lives;
         public Vector2 Position
         {
-            get { return position; }
+            get { return _position; }
+            set { _position = value; }
         }
         public Player(Remote _remote)
         {
@@ -68,7 +69,7 @@ namespace PlatformGame.SpriteFolder
             if (remote.Jump && hasJumped == false)
             {
                 PlayerAnimation.currentAnimation = PlayerAnimation.jumpAnimation;
-                position.Y -= 5f;
+                _position.Y -= 5f;
                 velocity.Y = -10f;
                 hasJumped = true;
             }
@@ -98,33 +99,85 @@ namespace PlatformGame.SpriteFolder
             }
             if (rectangle.TouchLeftOf(newRectangle))
             {
-                position.X = newRectangle.X - rectangle.Width - 2;
+                _position.X = newRectangle.X - rectangle.Width - 2;
             }
             if (rectangle.TouchRightOf(newRectangle))
             {
-                position.X = newRectangle.X + newRectangle.Width + 2;
+                _position.X = newRectangle.X + newRectangle.Width + 2;
             }
             if (rectangle.TouchBottomOf(newRectangle))
             {
                 velocity.Y = 1f;
             }
-            if (position.X < 0)
+            if (_position.X < 0)
             {
-                position.X = 0;
+                _position.X = 0;
             }
-            if (position.Y < 0)
+            if (_position.Y < 0)
             {
                 velocity.Y = 1f;
             }
-            if (position.Y > yOffset - rectangle.Height)
+            if (_position.Y > yOffset - rectangle.Height)
             {
-                position.Y = yOffset - rectangle.Height;
+                _position.Y = yOffset - rectangle.Height;
             }
-            if (position.X > xOffset - rectangle.Width)
+            if (_position.X > xOffset - rectangle.Width)
             {
-                position.X = xOffset - rectangle.Width;
+                _position.X = xOffset - rectangle.Width;
             }
         }
+
+        #region Didgeridoo Collision 2
+        //private bool IsTouchingLeft(Didgeridoo didgeridoo)
+        //{
+        //    return this.rectangle.Right > didgeridoo.rectangle.Left &&
+        //        this.rectangle.Left < didgeridoo.rectangle.Left &&
+        //        this.rectangle.Bottom > didgeridoo.rectangle.Top &&
+        //        this.rectangle.Top < didgeridoo.rectangle.Bottom;
+        //}
+        //private bool IsTouchingRight(Didgeridoo didgeridoo)
+        //{
+        //    return this.rectangle.Left < didgeridoo.rectangle.Right &&
+        //        this.rectangle.Right > didgeridoo.rectangle.Right &&
+        //        this.rectangle.Bottom > didgeridoo.rectangle.Top &&
+        //        this.rectangle.Top < didgeridoo.rectangle.Bottom;
+        //}
+        //private bool IsTouchingTop(Didgeridoo didgeridoo)
+        //{
+        //    return this.rectangle.Bottom + this.velocity.Y > didgeridoo.rectangle.Top &&
+        //        this.rectangle.Top < didgeridoo.rectangle.Top &&
+        //        this.rectangle.Right > didgeridoo.rectangle.Left &&
+        //        this.rectangle.Left < didgeridoo.rectangle.Right;
+        //}
+        //private bool IsTouchingBottom(Didgeridoo didgeridoo)
+        //{
+        //    return this.rectangle.Top + this.velocity.Y < didgeridoo.rectangle.Bottom &&
+        //        this.rectangle.Bottom > didgeridoo.rectangle.Bottom &&
+        //        this.rectangle.Right > didgeridoo.rectangle.Left &&
+        //        this.rectangle.Left < didgeridoo.rectangle.Right;
+        //}
+
+        //public bool DidgeridooCollision2(Didgeridoo didgeridoo)
+        //{
+        //    if ((this.velocity.X > 0 && this.IsTouchingLeft(didgeridoo)) ||
+        //        (this.velocity.X < 0 && this.IsTouchingRight(didgeridoo)))
+        //    {
+        //        //Touch
+        //        Debug.WriteLine("Touch Left or Right");
+        //        return true;
+        //    }
+        //    if ((this.velocity.Y > 0 && this.IsTouchingTop(didgeridoo)) ||
+        //        this.velocity.Y < 0 && this.IsTouchingBottom(didgeridoo))
+        //    {
+        //        //Touch
+        //        Debug.WriteLine("Touch Top or Bottom");
+        //        return true;
+        //    }
+        //    return false;
+        //}
+        #endregion
+
+        #region Didgeridoo Collision Try 1
         //public void DidgeridooCollision(Rectangle newRectangle)
         //{
         //    if (rectangle.TouchTopOf(newRectangle) || rectangle.TouchBottomOf(newRectangle) || rectangle.TouchLeftOf(newRectangle) || rectangle.TouchRightOf(newRectangle))
@@ -132,9 +185,11 @@ namespace PlatformGame.SpriteFolder
         //        this.getsDamage = true;
         //    }
         //}
+        #endregion
+
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, position, PlayerAnimation.currentAnimation.currentFrame.SourceRectangle, playerColor, 0f, new Vector2(0, 0), 1f, spriteEffect, 0f);
+            spriteBatch.Draw(texture, _position, PlayerAnimation.currentAnimation.currentFrame.SourceRectangle, playerColor, 0f, new Vector2(0, 0), 1f, spriteEffect, 0f);
             lives.Draw(spriteBatch);
         }
 
@@ -146,25 +201,24 @@ namespace PlatformGame.SpriteFolder
 
         public override void Update(GameTime gameTime)
         {
-            position += velocity;
-            rectangle = new Rectangle((int)position.X, (int)position.Y, PlayerAnimation.currentAnimation.currentFrame.SourceRectangle.Width, PlayerAnimation.currentAnimation.currentFrame.SourceRectangle.Height);
+            _position += velocity;
+            rectangle = new Rectangle((int)_position.X, (int)_position.Y, PlayerAnimation.currentAnimation.currentFrame.SourceRectangle.Width, PlayerAnimation.currentAnimation.currentFrame.SourceRectangle.Height);
 
             Input(gameTime);
             remote.Update();
-            lives.Update(gameTime, this.position.X, this.position.Y);
+            lives.Update(gameTime, this._position.X, this._position.Y);
 
-            if (getsDamage == true && immune == false)
+            if (this.getsDamage && !this.immune)
             {
                 immune = true;
                 getsDamage = false;
                 Sounds.PlayAuwchSound(.8f);
                 lives.Damage();
             }
-            if (immune == true)
+            if (this.immune)
             {
                 colorSwitch = !colorSwitch;
                 waitSec += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                Debug.WriteLine($"waitSec: {waitSec}");
                 if (waitSec >= 1)
                 {
                     waitSec = 0;
@@ -182,7 +236,7 @@ namespace PlatformGame.SpriteFolder
                 velocity.Y += 0.4f;
             }
 
-            if (position.Y >= 850 || lives.DiedOfDamage())
+            if (_position.Y >= 850 || lives.DiedOfDamage())
             {
                 deathAnimationPlaying = true;
                 immune = false;

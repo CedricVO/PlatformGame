@@ -21,9 +21,12 @@ namespace PlatformGame.SpriteFolder
             if (spawn >= 1)
             {
                 spawn = 0;
-                int velocity = random.Next(level, level * 5);
-                int positionY = random.Next(100, 1000);
-                didgeridoos.Add(new Didgeridoo(positionY, velocity));
+                if (didgeridoos.Count < (level * 5))
+                {
+                    int velocity = random.Next(level, level * 5);
+                    int positionY = random.Next(100, 1000);
+                    didgeridoos.Add(new Didgeridoo(positionY, new Vector2(velocity, 0)));
+                }
             }
         }
         public void Draw(SpriteBatch spriteBatch)
@@ -43,12 +46,18 @@ namespace PlatformGame.SpriteFolder
         public void Update(GameTime gameTime)
         {
             spawn += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            //Debug.WriteLine($"spawn: {spawn}");
             if (didgeridoos.Count > 0)
             {
                 foreach (var item in didgeridoos)
                 {
                     item.Update(gameTime);
+                }
+                for (int i = 0; i < didgeridoos.Count; i++)
+                {
+                    if (didgeridoos.ElementAt(i).position.X < 0)
+                    {
+                        didgeridoos.RemoveAt(i);
+                    }
                 }
             }
         }

@@ -35,6 +35,7 @@ namespace PlatformGame.GameFolder
                 "Tile11",
                 "Tile12",
                 "Heart",
+                "door",
             };
 
             foreach (string item in graphics)
