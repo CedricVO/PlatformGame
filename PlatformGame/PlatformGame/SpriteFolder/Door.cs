@@ -13,8 +13,8 @@ namespace PlatformGame.SpriteFolder
     {
         private Vector2 _position = new Vector2(1420,802); //1420,802
         private Texture2D _texture;
-        public Rectangle Rectangle;
 
+        public Rectangle Rectangle;
         public Vector2 Position
         {
             get { return _position; }

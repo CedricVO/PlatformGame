@@ -53,8 +53,8 @@ namespace PlatformGame.MenuFolder
             spriteBatch.Begin();
 
             spriteBatch.Draw(_background, new Vector2(-30, 0), new Rectangle(0, 0, 852, 480), Color.White, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, 1f);
-            spriteBatch.DrawString(Resources.font, "Press Enter to go to main menu", new Vector2(165, 330), Color.White, 0, new Vector2(0, 0), .6f, SpriteEffects.None, 1.0f);
-            spriteBatch.DrawString(Resources.font, "Press Esc to Quit", new Vector2(280, 430), Color.White, 0, new Vector2(0, 0), .5f, SpriteEffects.None, 1.0f);
+            spriteBatch.DrawString(Resources.Font, "Press Enter to go to main menu", new Vector2(165, 330), Color.White, 0, new Vector2(0, 0), .6f, SpriteEffects.None, 1.0f);
+            spriteBatch.DrawString(Resources.Font, "Press Esc to Quit", new Vector2(280, 430), Color.White, 0, new Vector2(0, 0), .5f, SpriteEffects.None, 1.0f);
 
             spriteBatch.End();
         }

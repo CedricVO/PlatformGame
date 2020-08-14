@@ -12,7 +12,7 @@ namespace PlatformGame.LevelFolder
     {
         public CollitionTiles(int i, Rectangle newRectangle)
         {
-            texture = Resources.LoadFile["Tile" + i];
+            _texture = Resources.LoadFile["Tile" + i];
             this.Rectangle = newRectangle;
         }
     }

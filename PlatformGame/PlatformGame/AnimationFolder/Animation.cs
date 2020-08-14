@@ -9,16 +9,17 @@ namespace PlatformGame.AnimationFolder
 {
     class Animation
     {
-        private List<AnimationFrame> frames;
-        public AnimationFrame currentFrame;
-        private double xOffset;
-        int counter = 0, speed;
+        private List<AnimationFrame> _frames;
+        private double _xOffset;
+        private int _counter = 0, _speed;
 
-        public Animation(int _speed)
+        public AnimationFrame CurrentFrame { get; set; }
+
+        public Animation(int speed)
         {
-            frames = new List<AnimationFrame>();
-            xOffset = 0;
-            speed = _speed;
+            _frames = new List<AnimationFrame>();
+            _xOffset = 0;
+            _speed = speed;
         }
         public void AddFrame(Rectangle rectangle)
         {
@@ -26,21 +27,21 @@ namespace PlatformGame.AnimationFolder
             {
                 SourceRectangle = rectangle
             };
-            frames.Add(frame);
-            currentFrame = frames[0];
+            _frames.Add(frame);
+            CurrentFrame = _frames[0];
         }
         public void Update(GameTime gameTime)
         {
-            xOffset += currentFrame.SourceRectangle.Width * gameTime.ElapsedGameTime.Milliseconds / speed;
-            if (xOffset >= currentFrame.SourceRectangle.Width)
+            _xOffset += CurrentFrame.SourceRectangle.Width * gameTime.ElapsedGameTime.Milliseconds / _speed;
+            if (_xOffset >= CurrentFrame.SourceRectangle.Width)
             {
-                counter++;
-                if (counter >= frames.Count)
+                _counter++;
+                if (_counter >= _frames.Count)
                 {
-                    counter = 0;
+                    _counter = 0;
                 }
-                currentFrame = frames[counter];
-                xOffset = 0;
+                CurrentFrame = _frames[_counter];
+                _xOffset = 0;
             }
         }
     }

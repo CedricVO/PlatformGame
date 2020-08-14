@@ -46,17 +46,6 @@ namespace PlatformGame.GameFolder
             {
                 Jump = false;
             }
-
-            //TESTING
-
-            if (stateKey.IsKeyDown(Keys.Down))
-            {
-                Death = true;
-            }
-            if (stateKey.IsKeyUp(Keys.Down))
-            {
-                Death = false;
-            }
         }
     }
 }

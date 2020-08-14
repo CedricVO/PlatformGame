@@ -10,13 +10,13 @@ namespace PlatformGame.LevelFolder
 {
     class Tiles
     {
-        protected Texture2D texture;
-        private Rectangle rectangle;
-        public Rectangle Rectangle { get { return rectangle; } protected set { rectangle = value; } }
+        protected Texture2D _texture;
+        private Rectangle _rectangle;
+        public Rectangle Rectangle { get { return _rectangle; } protected set { _rectangle = value; } }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, rectangle, Color.White);
+            spriteBatch.Draw(_texture, _rectangle, Color.White);
         }
     }
 }

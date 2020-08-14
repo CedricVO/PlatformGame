@@ -10,42 +10,42 @@ namespace PlatformGame.GameFolder
 {
     class Camera
     {
-        private Matrix transform;
-        public Vector2 center;
-        private Viewport viewPort;
+        private Matrix _transform;
+        public Vector2 _center;
+        private Viewport _viewPort;
 
         public Matrix Transform
         {
-            get { return transform; }
+            get { return _transform; }
         }
         public Camera(Viewport newViewPort)
         {
-            viewPort = newViewPort;
+            _viewPort = newViewPort;
         }
 
         public void Update(Vector2 position, int xOffset, int yOffset)
         {
-            if (position.X < viewPort.Width / 2)
+            if (position.X < _viewPort.Width / 2)
             {
-                center.X = viewPort.Width / 2;
+                _center.X = _viewPort.Width / 2;
             }
-            else if (position.X > xOffset - (viewPort.Width / 2))
+            else if (position.X > xOffset - (_viewPort.Width / 2))
             {
-                center.X = xOffset - (viewPort.Width / 2);
+                _center.X = xOffset - (_viewPort.Width / 2);
             }
-            else center.X = position.X;
+            else _center.X = position.X;
 
-            if (position.Y < viewPort.Height / 2)
+            if (position.Y < _viewPort.Height / 2)
             {
-                center.Y = viewPort.Height / 2;
+                _center.Y = _viewPort.Height / 2;
             }
-            else if (position.Y > yOffset - (viewPort.Height / 2))
+            else if (position.Y > yOffset - (_viewPort.Height / 2))
             {
-                center.Y = yOffset - (viewPort.Height / 2);
+                _center.Y = yOffset - (_viewPort.Height / 2);
             }
-            else center.Y = position.Y;
+            else _center.Y = position.Y;
 
-            transform = Matrix.CreateTranslation(new Vector3(-center.X + (viewPort.Width / 2), -center.Y + (viewPort.Height / 2), 0));
+            _transform = Matrix.CreateTranslation(new Vector3(-_center.X + (_viewPort.Width / 2), -_center.Y + (_viewPort.Height / 2), 0));
         }
     }
 }

@@ -11,7 +11,7 @@ namespace PlatformGame.GameFolder
     class Resources
     {
         public static Dictionary<string, Texture2D> LoadFile;
-        public static SpriteFont font;
+        public static SpriteFont Font;
 
         public static void LoadImages(ContentManager content)
         {
@@ -48,7 +48,7 @@ namespace PlatformGame.GameFolder
 
         public static void LoadFont(ContentManager content)
         {
-            font = content.Load<SpriteFont>("File");
+            Font = content.Load<SpriteFont>("File");
         }
     }
 }

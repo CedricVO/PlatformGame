@@ -43,11 +43,6 @@ namespace PlatformGame.MenuFolder
                 game.StateChange(Game1.GameState.PlayState);
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.W))
-            {
-                game.StateChange(Game1.GameState.Win);
-            }
-
             _rotation1 += .15f;
             _rotation2 += .1f;
 
@@ -76,9 +71,9 @@ namespace PlatformGame.MenuFolder
             spriteBatch.Begin();
 
             spriteBatch.Draw(_background, new Vector2(-60, 0), new Rectangle(0, 0, 1431, 750), Color.White, 0f, new Vector2(0,0), .65f, SpriteEffects.None, 1f);
-            spriteBatch.DrawString(Resources.font, "Dodge The Didgeridoo", new Vector2(50, 50), Color.Black, 0, new Vector2(0, 0), 1.3f, SpriteEffects.None, 1.0f);
-            spriteBatch.DrawString(Resources.font, "Press Enter to start", new Vector2(190, 360), Color.Black, 0, new Vector2(0, 0), .8f, SpriteEffects.None, 1.0f);
-            spriteBatch.DrawString(Resources.font, "Esc to Quit", new Vector2(5, 460), Color.Red, 0, new Vector2(0, 0), .4f, SpriteEffects.None, 1.0f);
+            spriteBatch.DrawString(Resources.Font, "Dodge The Didgeridoo", new Vector2(50, 50), Color.Black, 0, new Vector2(0, 0), 1.3f, SpriteEffects.None, 1.0f);
+            spriteBatch.DrawString(Resources.Font, "Press Enter to start", new Vector2(190, 360), Color.Black, 0, new Vector2(0, 0), .8f, SpriteEffects.None, 1.0f);
+            spriteBatch.DrawString(Resources.Font, "Esc to Quit", new Vector2(5, 460), Color.Red, 0, new Vector2(0, 0), .4f, SpriteEffects.None, 1.0f);
             spriteBatch.Draw(Resources.LoadFile["didgeridoo"], new Vector2(positionX1, 250), new Rectangle(0, 0, 545, 60), Color.White, _rotation1, new Vector2(545 / 2, 60 / 2), .4f, SpriteEffects.None, 0f);
             spriteBatch.Draw(Resources.LoadFile["didgeridoo"], new Vector2(_positionX2, _positionY2), new Rectangle(0, 0, 545, 60), Color.White, _rotation2, new Vector2(545 / 2, 60 / 2), .4f, SpriteEffects.None, 0f);
 

@@ -15,9 +15,9 @@ namespace PlatformGame.MenuFolder
 {
     class PlayState : Menu
     {
-        int _currentLevel = 1;
-        float _waitSec = 0;
-        bool _damageflag = true;
+        private int _currentLevel = 1;
+        private float _waitSec = 0;
+        private bool _damageflag = true;
 
         Player player;
         DidgeridooSpawner didgeridooSpawner;
@@ -26,9 +26,6 @@ namespace PlatformGame.MenuFolder
         Camera camera;
         Remote remote;
         GraphicsDevice graphicsDevice;
-
-        //public static int levelWidth;
-        //public static int levelHeight;
         public PlayState(GraphicsDevice _graphicsDevice) : base(_graphicsDevice)
         {
             this.graphicsDevice = _graphicsDevice;
@@ -56,9 +53,6 @@ namespace PlatformGame.MenuFolder
             door.Load();
 
             _background = Resources.LoadFile["background"];
-
-            //levelWidth = map.LevelCurrent.Width;
-            //levelHeight = map.LevelCurrent.Height;
         }
 
         public override void Update(GameTime gameTime, Game1 game)
@@ -75,12 +69,13 @@ namespace PlatformGame.MenuFolder
                 camera.Update(player.Position, map.LevelCurrent.Width, map.LevelCurrent.Height);
             }
 
-            #region Didgeridoo Collision Try 1
+            //Collision with Didgeridoos
+            #region Didgeridoo Collision
             if (_damageflag)
             {
                 foreach (var item in didgeridooSpawner.didgeridoos)
                 {
-                    if (player.DidgeridooCollision(item.rectangle))
+                    if (player.DidgeridooCollision(item.Rectangle))
                     {
                         RemoveOneDidgeridoo(item);
                         break;

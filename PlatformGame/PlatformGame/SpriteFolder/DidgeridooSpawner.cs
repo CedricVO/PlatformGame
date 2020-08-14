@@ -11,16 +11,16 @@ namespace PlatformGame.SpriteFolder
 {
     class DidgeridooSpawner
     {
-        private float spawn = 0;
+        private float _spawn = 0;
 
         public List<Didgeridoo> didgeridoos = new List<Didgeridoo>();
         Random random = new Random();
 
         public void SpawnDidgeridoos(int level)
         {
-            if (spawn >= 1)
+            if (_spawn >= 1)
             {
-                spawn = 0;
+                _spawn = 0;
                 if (didgeridoos.Count < (level * 5))
                 {
                     int velocity = random.Next(level, level * 5);
@@ -45,7 +45,7 @@ namespace PlatformGame.SpriteFolder
         }
         public void Update(GameTime gameTime)
         {
-            spawn += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            _spawn += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (didgeridoos.Count > 0)
             {
                 foreach (var item in didgeridoos)
@@ -54,7 +54,7 @@ namespace PlatformGame.SpriteFolder
                 }
                 for (int i = 0; i < didgeridoos.Count; i++)
                 {
-                    if (didgeridoos.ElementAt(i).position.X < 0)
+                    if (didgeridoos.ElementAt(i).Position.X < 0)
                     {
                         didgeridoos.RemoveAt(i);
                     }

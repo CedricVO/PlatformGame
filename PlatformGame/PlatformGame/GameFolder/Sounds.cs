@@ -11,19 +11,19 @@ namespace PlatformGame.GameFolder
 {
     static class Sounds
     {
-        private static Song menuMusic;
-        private static Song gameOver;
-        private static Song levelMusic;
-        private static SoundEffect auwch;
+        private static Song _menuMusic;
+        private static Song _gameOver;
+        private static Song _levelMusic;
+        private static SoundEffect _auwch;
         private static Song _winMusic;
         private static SoundEffect _level1;
         private static SoundEffect _level2;
         public static void Load(ContentManager content)
         {
-            menuMusic = content.Load<Song>("MenuMusic");
-            gameOver = content.Load<Song>("GameOverMusic");
-            levelMusic = content.Load<Song>("LevelMusic");
-            auwch = content.Load<SoundEffect>("auwch");
+            _menuMusic = content.Load<Song>("MenuMusic");
+            _gameOver = content.Load<Song>("GameOverMusic");
+            _levelMusic = content.Load<Song>("LevelMusic");
+            _auwch = content.Load<SoundEffect>("auwch");
             _winMusic = content.Load<Song>("WinMusic");
             _level1 = content.Load<SoundEffect>("level1Sound");
             _level2 = content.Load<SoundEffect>("level2Sound");
@@ -45,23 +45,23 @@ namespace PlatformGame.GameFolder
         }
         public static void PlayAuwchSound(float volume)
         {
-            auwch.Play(volume, 0, 0);
+            _auwch.Play(volume, 0, 0);
         }
         public static void PlayMenuMusic(float volume)
         {
             MediaPlayer.Volume = volume;
-            MediaPlayer.Play(menuMusic);
+            MediaPlayer.Play(_menuMusic);
             MediaPlayer.IsRepeating = true;
         }
         public static void PlayGameOver(float volume)
         {
             MediaPlayer.Volume = volume;
-            MediaPlayer.Play(gameOver);
+            MediaPlayer.Play(_gameOver);
         }
         public static void PlayLevelMusic(float volume)
         {
             MediaPlayer.Volume = volume;
-            MediaPlayer.Play(levelMusic);
+            MediaPlayer.Play(_levelMusic);
             MediaPlayer.IsRepeating = true;
         }
         public static void StopMusic()

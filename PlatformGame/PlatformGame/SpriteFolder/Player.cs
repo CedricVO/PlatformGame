@@ -14,19 +14,20 @@ namespace PlatformGame.SpriteFolder
 {
     class Player : Sprite
     {
-        private Texture2D texture;
+        private Texture2D _texture;
         private Vector2 _position = new Vector2(50, 750);
+        private SpriteEffects _spriteEffect;
+        private bool _hasJumped = false;
+        private bool _getsDamage = false;
+        private bool _immune = false;
+        private bool _deathAnimationPlaying = false;
+        private Color _playerColor = Color.White;
+        private bool _colorSwitch = true;
+        private float _waitSec = 0;
+
         public Vector2 velocity;
         public Rectangle rectangle;
-        private SpriteEffects spriteEffect;
-        private bool hasJumped = false;
         public bool isDead = false;
-        private bool getsDamage = false;
-        private bool immune = false;
-        private bool deathAnimationPlaying = false;
-        private Color playerColor = Color.White;
-        private bool colorSwitch = true;
-        private float waitSec = 0;
 
         Remote remote;
         Lives lives;
@@ -55,37 +56,37 @@ namespace PlatformGame.SpriteFolder
                 velocity.X = (float)gameTime.ElapsedGameTime.TotalMilliseconds / 3;
 
                 PlayerAnimation.currentAnimation = PlayerAnimation.runAnimation;
-                spriteEffect = SpriteEffects.None;
+                _spriteEffect = SpriteEffects.None;
             }
             else if (remote.Left)
             {
                 velocity.X = -(float)gameTime.ElapsedGameTime.TotalMilliseconds / 3;
 
                 PlayerAnimation.currentAnimation = PlayerAnimation.runAnimation;
-                spriteEffect = SpriteEffects.FlipHorizontally;
+                _spriteEffect = SpriteEffects.FlipHorizontally;
             }
             else velocity.X = 0f;
 
-            if (remote.Jump && hasJumped == false)
+            if (remote.Jump && _hasJumped == false)
             {
                 PlayerAnimation.currentAnimation = PlayerAnimation.jumpAnimation;
                 _position.Y -= 5f;
                 velocity.Y = -10f;
-                hasJumped = true;
+                _hasJumped = true;
             }
 
-            if (remote.Idle && deathAnimationPlaying == false)
+            if (remote.Idle && _deathAnimationPlaying == false)
             {
                 PlayerAnimation.currentAnimation = PlayerAnimation.idleAnimation;
             }
 
-            if (deathAnimationPlaying)
+            if (_deathAnimationPlaying)
             {
                 PlayerAnimation.currentAnimation = PlayerAnimation.deathAnimation;
-                if (waitSec >= 1.5)
+                if (_waitSec >= 1.5)
                 {
                     isDead = true;
-                    waitSec = 0;
+                    _waitSec = 0;
                 }
             }
         }
@@ -95,7 +96,7 @@ namespace PlatformGame.SpriteFolder
             {
                 rectangle.Y = newRectangle.Y - rectangle.Height;
                 velocity.Y = 0f;
-                hasJumped = false;
+                _hasJumped = false;
             }
             if (rectangle.TouchLeftOf(newRectangle))
             {
@@ -127,12 +128,12 @@ namespace PlatformGame.SpriteFolder
             }
         }
 
-        #region Didgeridoo Collision Try 1
+        #region Didgeridoo Collision
         public bool DidgeridooCollision(Rectangle newRectangle)
         {
             if (this.rectangle.Intersects(newRectangle))
             {
-                this.getsDamage = true;
+                this._getsDamage = true;
                 return true;
             }
             return false;
@@ -141,48 +142,48 @@ namespace PlatformGame.SpriteFolder
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, _position, PlayerAnimation.currentAnimation.currentFrame.SourceRectangle, playerColor, 0f, new Vector2(0, 0), 1f, spriteEffect, 0f);
+            spriteBatch.Draw(_texture, _position, PlayerAnimation.currentAnimation.CurrentFrame.SourceRectangle, _playerColor, 0f, new Vector2(0, 0), 1f, _spriteEffect, 0f);
             lives.Draw(spriteBatch);
         }
 
         public override void Load()
         {
-            texture = Resources.LoadFile["spritesheet-3"];
+            _texture = Resources.LoadFile["spritesheet-3"];
             lives.Load();
         }
 
         public override void Update(GameTime gameTime)
         {
             _position += velocity;
-            rectangle = new Rectangle((int)_position.X, (int)_position.Y, PlayerAnimation.currentAnimation.currentFrame.SourceRectangle.Width, PlayerAnimation.currentAnimation.currentFrame.SourceRectangle.Height);
+            rectangle = new Rectangle((int)_position.X, (int)_position.Y, PlayerAnimation.currentAnimation.CurrentFrame.SourceRectangle.Width, PlayerAnimation.currentAnimation.CurrentFrame.SourceRectangle.Height);
 
             Input(gameTime);
             remote.Update();
             lives.Update(gameTime, this._position.X, this._position.Y);
 
-            if (getsDamage && !immune)
+            if (_getsDamage && !_immune)
             {
-                getsDamage = false;
-                immune = true;
+                _getsDamage = false;
+                _immune = true;
                 Sounds.PlayAuwchSound(.8f);
                 lives.Damage();
             }
-            if (this.immune)
+            if (this._immune)
             {
-                colorSwitch = !colorSwitch;
-                waitSec += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                if (waitSec >= .3)
+                _colorSwitch = !_colorSwitch;
+                _waitSec += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (_waitSec >= .3)
                 {
-                    waitSec = 0;
-                    immune = false;
+                    _waitSec = 0;
+                    _immune = false;
                 }
             }
 
-            if (colorSwitch)
+            if (_colorSwitch)
             {
-                playerColor = Color.White;
+                _playerColor = Color.White;
             }
-            else { playerColor = Color.Transparent; }
+            else { _playerColor = Color.Transparent; }
 
             if (velocity.Y < 10)
             {
@@ -191,10 +192,10 @@ namespace PlatformGame.SpriteFolder
 
             if (_position.Y >= 850 || lives.DiedOfDamage())
             {
-                deathAnimationPlaying = true;
-                immune = false;
-                playerColor = Color.White;
-                waitSec += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                _deathAnimationPlaying = true;
+                _immune = false;
+                _playerColor = Color.White;
+                _waitSec += (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
             PlayerAnimation.currentAnimation.Update(gameTime);
         }
