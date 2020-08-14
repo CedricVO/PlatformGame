@@ -85,7 +85,7 @@ namespace PlatformGame.MenuFolder
             #endregion
 
             //Collision with Door
-            if (player.rectangle.Intersects(door.Rectangle) && _currentLevel == 2)
+            if (player.Rectangle.Intersects(door.Rectangle) && _currentLevel == 2)
             {
                 _damageflag = false;
                 _waitSec += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -96,7 +96,7 @@ namespace PlatformGame.MenuFolder
                 }
             }
 
-            if (player.rectangle.Intersects(door.Rectangle) && _currentLevel == 1)
+            if (player.Rectangle.Intersects(door.Rectangle) && _currentLevel == 1)
             {
                 _damageflag = false;
                 _waitSec += (float)gameTime.ElapsedGameTime.TotalSeconds;

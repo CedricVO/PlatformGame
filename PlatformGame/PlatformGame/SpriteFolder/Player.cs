@@ -26,20 +26,20 @@ namespace PlatformGame.SpriteFolder
         private float _waitSec = 0;
 
         public Vector2 velocity;
-        public Rectangle rectangle;
+        public Rectangle Rectangle;
         public bool isDead = false;
 
-        Remote remote;
+        Remote Remote;
         Lives lives;
         public Vector2 Position
         {
             get { return _position; }
             set { _position = value; }
         }
-        public Player(Remote _remote)
+        public Player(Remote remote)
         {
             lives = new Lives();
-            this.remote = _remote;
+            Remote = remote;
             //Run animation
             PlayerAnimation.CreateAnimationRun();
             //Idle animation
@@ -51,14 +51,14 @@ namespace PlatformGame.SpriteFolder
         }
         private void Input(GameTime gameTime)
         {
-            if (remote.Right)
+            if (Remote.Right)
             {
                 velocity.X = (float)gameTime.ElapsedGameTime.TotalMilliseconds / 3;
 
                 PlayerAnimation.currentAnimation = PlayerAnimation.runAnimation;
                 _spriteEffect = SpriteEffects.None;
             }
-            else if (remote.Left)
+            else if (Remote.Left)
             {
                 velocity.X = -(float)gameTime.ElapsedGameTime.TotalMilliseconds / 3;
 
@@ -67,7 +67,7 @@ namespace PlatformGame.SpriteFolder
             }
             else velocity.X = 0f;
 
-            if (remote.Jump && _hasJumped == false)
+            if (Remote.Jump && _hasJumped == false)
             {
                 PlayerAnimation.currentAnimation = PlayerAnimation.jumpAnimation;
                 _position.Y -= 5f;
@@ -75,7 +75,7 @@ namespace PlatformGame.SpriteFolder
                 _hasJumped = true;
             }
 
-            if (remote.Idle && _deathAnimationPlaying == false)
+            if (Remote.Idle && _deathAnimationPlaying == false)
             {
                 PlayerAnimation.currentAnimation = PlayerAnimation.idleAnimation;
             }
@@ -92,21 +92,21 @@ namespace PlatformGame.SpriteFolder
         }
         public void Collision(Rectangle newRectangle, int xOffset, int yOffset)
         {
-            if (rectangle.TouchTopOf(newRectangle))
+            if (Rectangle.TouchTopOf(newRectangle))
             {
-                rectangle.Y = newRectangle.Y - rectangle.Height;
+                Rectangle.Y = newRectangle.Y - Rectangle.Height;
                 velocity.Y = 0f;
                 _hasJumped = false;
             }
-            if (rectangle.TouchLeftOf(newRectangle))
+            if (Rectangle.TouchLeftOf(newRectangle))
             {
-                _position.X = newRectangle.X - rectangle.Width - 2;
+                _position.X = newRectangle.X - Rectangle.Width - 2;
             }
-            if (rectangle.TouchRightOf(newRectangle))
+            if (Rectangle.TouchRightOf(newRectangle))
             {
                 _position.X = newRectangle.X + newRectangle.Width + 2;
             }
-            if (rectangle.TouchBottomOf(newRectangle))
+            if (Rectangle.TouchBottomOf(newRectangle))
             {
                 velocity.Y = 1f;
             }
@@ -118,22 +118,22 @@ namespace PlatformGame.SpriteFolder
             {
                 velocity.Y = 1f;
             }
-            if (_position.Y > yOffset - rectangle.Height)
+            if (_position.Y > yOffset - Rectangle.Height)
             {
-                _position.Y = yOffset - rectangle.Height;
+                _position.Y = yOffset - Rectangle.Height;
             }
-            if (_position.X > xOffset - rectangle.Width)
+            if (_position.X > xOffset - Rectangle.Width)
             {
-                _position.X = xOffset - rectangle.Width;
+                _position.X = xOffset - Rectangle.Width;
             }
         }
 
         #region Didgeridoo Collision
         public bool DidgeridooCollision(Rectangle newRectangle)
         {
-            if (this.rectangle.Intersects(newRectangle))
+            if (Rectangle.Intersects(newRectangle))
             {
-                this._getsDamage = true;
+                _getsDamage = true;
                 return true;
             }
             return false;
@@ -155,10 +155,10 @@ namespace PlatformGame.SpriteFolder
         public override void Update(GameTime gameTime)
         {
             _position += velocity;
-            rectangle = new Rectangle((int)_position.X, (int)_position.Y, PlayerAnimation.currentAnimation.CurrentFrame.SourceRectangle.Width, PlayerAnimation.currentAnimation.CurrentFrame.SourceRectangle.Height);
+            Rectangle = new Rectangle((int)_position.X, (int)_position.Y, PlayerAnimation.currentAnimation.CurrentFrame.SourceRectangle.Width, PlayerAnimation.currentAnimation.CurrentFrame.SourceRectangle.Height);
 
             Input(gameTime);
-            remote.Update();
+            Remote.Update();
             lives.Update(gameTime, this._position.X, this._position.Y);
 
             if (_getsDamage && !_immune)
@@ -168,7 +168,7 @@ namespace PlatformGame.SpriteFolder
                 Sounds.PlayAuwchSound(.8f);
                 lives.Damage();
             }
-            if (this._immune)
+            if (_immune)
             {
                 _colorSwitch = !_colorSwitch;
                 _waitSec += (float)gameTime.ElapsedGameTime.TotalSeconds;
