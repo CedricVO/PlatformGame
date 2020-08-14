@@ -62,11 +62,23 @@
 /processorParam:TextureFormat=Compressed
 /build:File.spritefont
 
-#begin GameOverMusic.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
+#begin gameover.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:gameover.jpg
+
+#begin GameOverMusic.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
 /processorParam:Quality=Best
-/build:GameOverMusic.wav
+/build:GameOverMusic.mp3
 
 #begin heart.png
 /importer:TextureImporter
@@ -79,6 +91,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:heart.png
+
+#begin level1Sound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:level1Sound.wav
+
+#begin level2Sound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:level2Sound.wav
 
 #begin LevelMusic.mp3
 /importer:Mp3Importer
@@ -247,4 +271,22 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Tile9.png
+
+#begin win.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:win.jpg
+
+#begin WinMusic.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:WinMusic.mp3
 

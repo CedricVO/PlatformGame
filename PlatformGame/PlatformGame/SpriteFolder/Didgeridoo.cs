@@ -15,7 +15,7 @@ namespace PlatformGame.SpriteFolder
         private Texture2D texture;
         public Vector2 velocity;
         private float angle;
-        private float rotation = .1f; //.1f
+        private float rotation = .1f;
         public Rectangle rectangle;
 
         public Didgeridoo(int _positionY, Vector2 _velocity)
@@ -34,7 +34,6 @@ namespace PlatformGame.SpriteFolder
         public override void Load()
         {
             texture = Resources.LoadFile["didgeridoo"];
-            //Rectangle = new Rectangle((int)this.position.X, (int)this.position.Y, texture.Width, texture.Height);
         }
 
         public override void Update(GameTime gameTime)
@@ -42,7 +41,7 @@ namespace PlatformGame.SpriteFolder
             //update rectangle every frame
             rectangle = new Rectangle((int)this.position.X, (int)this.position.Y, texture.Width, texture.Height);
             //movement + turning
-            angle += rotation;
+            angle -= rotation;
             position -= velocity;
         }
     }

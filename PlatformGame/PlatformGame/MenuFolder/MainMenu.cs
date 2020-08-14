@@ -12,25 +12,26 @@ namespace PlatformGame.MenuFolder
 {
     class MainMenu : Menu
     {
-        private float rotation1 = 0f;
+        private float _rotation1 = 0f;
         private int positionX1 = 0;
 
-        private float rotation2 = 0f;
-        private int positionX2 = 1;
-        private int positionY2 = 1;
-        private bool substractX2 = true;
-        private bool substractY2 = true;
+        private float _rotation2 = 0f;
+        private int _positionX2 = 1;
+        private int _positionY2 = 1;
+        private bool _substractX2 = true;
+        private bool _substractY2 = true;
 
         public MainMenu(GraphicsDevice _graphicsDevice) : base(_graphicsDevice) { }
 
         public override void Initialize()
         {
+            Sounds.StopMusic();
             Sounds.PlayMenuMusic(.5f);
         }
 
         public override void LoadContent()
         {
-            background = Resources.LoadFile["background"];
+            _background = Resources.LoadFile["background"];
         }
 
         public override void Update(GameTime gameTime, Game1 game)
@@ -41,45 +42,46 @@ namespace PlatformGame.MenuFolder
             {
                 game.StateChange(Game1.GameState.PlayState);
             }
-            // REMOVE LATER!!!! GOES TO GAME OVER SCREEN
-            //if (Keyboard.GetState().IsKeyDown(Keys.G))
-            //{
-            //    game.StateChange(Game1.GameState.GameOver);
-            //}
 
-            rotation1 += .15f;
-            rotation2 += .1f;
+            if (Keyboard.GetState().IsKeyDown(Keys.W))
+            {
+                game.StateChange(Game1.GameState.Win);
+            }
+
+            _rotation1 += .15f;
+            _rotation2 += .1f;
 
             if (positionX1 >= 870)
             {
                 positionX1 = -70;
             }  else positionX1 += 3;
 
-            if (positionX2 >= 800 || positionX2 <= 0)
-                substractX2 = !substractX2;
+            if (_positionX2 >= 800 || _positionX2 <= 0)
+                _substractX2 = !_substractX2;
 
-            if (positionY2 >= 500 || positionY2 <= 0)
-                substractY2 = !substractY2;
+            if (_positionY2 >= 500 || _positionY2 <= 0)
+                _substractY2 = !_substractY2;
 
-            if (substractX2)
-                positionX2 += 4;
-            else positionX2 -= 4;
+            if (_substractX2)
+                _positionX2 += 4;
+            else _positionX2 -= 4;
 
-            if (substractY2)
-                positionY2 += 2;
-            else positionY2 -= 2;
+            if (_substractY2)
+                _positionY2 += 2;
+            else _positionY2 -= 2;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
-            spriteBatch.Draw(background, new Vector2(-60, 0), new Rectangle(0, 0, 1431, 750), Color.White, 0f, new Vector2(0,0), .65f, SpriteEffects.None, 1f);
+
+            spriteBatch.Draw(_background, new Vector2(-60, 0), new Rectangle(0, 0, 1431, 750), Color.White, 0f, new Vector2(0,0), .65f, SpriteEffects.None, 1f);
             spriteBatch.DrawString(Resources.font, "Dodge The Didgeridoo", new Vector2(50, 50), Color.Black, 0, new Vector2(0, 0), 1.3f, SpriteEffects.None, 1.0f);
             spriteBatch.DrawString(Resources.font, "Press Enter to start", new Vector2(190, 360), Color.Black, 0, new Vector2(0, 0), .8f, SpriteEffects.None, 1.0f);
             spriteBatch.DrawString(Resources.font, "Esc to Quit", new Vector2(5, 460), Color.Red, 0, new Vector2(0, 0), .4f, SpriteEffects.None, 1.0f);
-            spriteBatch.Draw(Resources.LoadFile["didgeridoo"], new Vector2(positionX1, 250), new Rectangle(0, 0, 545, 60), Color.White, rotation1, new Vector2(545 / 2, 60 / 2), .4f, SpriteEffects.None, 0f);
-            spriteBatch.Draw(Resources.LoadFile["didgeridoo"], new Vector2(positionX2, positionY2), new Rectangle(0, 0, 545, 60), Color.White, rotation2, new Vector2(545 / 2, 60 / 2), .4f, SpriteEffects.None, 0f);
-            //base.Draw(spriteBatch);
+            spriteBatch.Draw(Resources.LoadFile["didgeridoo"], new Vector2(positionX1, 250), new Rectangle(0, 0, 545, 60), Color.White, _rotation1, new Vector2(545 / 2, 60 / 2), .4f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(Resources.LoadFile["didgeridoo"], new Vector2(_positionX2, _positionY2), new Rectangle(0, 0, 545, 60), Color.White, _rotation2, new Vector2(545 / 2, 60 / 2), .4f, SpriteEffects.None, 0f);
+
             spriteBatch.End();
         }
     }

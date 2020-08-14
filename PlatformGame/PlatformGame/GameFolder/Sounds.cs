@@ -11,17 +11,37 @@ namespace PlatformGame.GameFolder
 {
     static class Sounds
     {
-        public static Song menuMusic;
-        public static SoundEffect gameOver;
-        public static Song levelMusic;
-        public static SoundEffect auwch;
-
+        private static Song menuMusic;
+        private static Song gameOver;
+        private static Song levelMusic;
+        private static SoundEffect auwch;
+        private static Song _winMusic;
+        private static SoundEffect _level1;
+        private static SoundEffect _level2;
         public static void Load(ContentManager content)
         {
             menuMusic = content.Load<Song>("MenuMusic");
-            gameOver = content.Load<SoundEffect>("GameOverMusic");
+            gameOver = content.Load<Song>("GameOverMusic");
             levelMusic = content.Load<Song>("LevelMusic");
             auwch = content.Load<SoundEffect>("auwch");
+            _winMusic = content.Load<Song>("WinMusic");
+            _level1 = content.Load<SoundEffect>("level1Sound");
+            _level2 = content.Load<SoundEffect>("level2Sound");
+        }
+
+        public static void PlayLevel1(float volume)
+        {
+            _level1.Play(volume, 0, 0);
+        }
+        public static void PlayLevel2(float volume)
+        {
+            _level2.Play(volume, 0, 0);
+        }
+        public static void PlayWinMusic(float volume)
+        {
+            MediaPlayer.Volume = volume;
+            MediaPlayer.Play(_winMusic);
+            MediaPlayer.IsRepeating = false;
         }
         public static void PlayAuwchSound(float volume)
         {
@@ -35,8 +55,8 @@ namespace PlatformGame.GameFolder
         }
         public static void PlayGameOver(float volume)
         {
-            SoundEffect.MasterVolume = volume;
-            gameOver.Play();
+            MediaPlayer.Volume = volume;
+            MediaPlayer.Play(gameOver);
         }
         public static void PlayLevelMusic(float volume)
         {

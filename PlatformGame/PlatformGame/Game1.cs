@@ -19,37 +19,36 @@ namespace PlatformGame
             Win
         }
 
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-
-        Menu menu;
+        GraphicsDeviceManager _graphics;
+        SpriteBatch _spriteBatch;
+        Menu _menu;
 
         public Game1()
         {
-            graphics = new GraphicsDeviceManager(this);
+            _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            graphics.GraphicsProfile = GraphicsProfile.HiDef;
+            _graphics.GraphicsProfile = GraphicsProfile.HiDef;
         }
 
         public void StateChange(GameState gameState)
         {
             switch (gameState) {
                 case GameState.MainMenu:
-                    this.menu = new MainMenu(GraphicsDevice);
+                    this._menu = new MainMenu(GraphicsDevice);
                     break;
                 case GameState.PlayState:
-                    this.menu = new PlayState(GraphicsDevice);
+                    this._menu = new PlayState(GraphicsDevice);
                     break;
                 case GameState.GameOver:
-                    this.menu = new GameOver(GraphicsDevice);
+                    this._menu = new GameOver(GraphicsDevice);
                     break;
                 case GameState.Win:
-                    this.menu = new Win(GraphicsDevice);
+                    this._menu = new Win(GraphicsDevice);
                     break;
             }
 
-            menu.Initialize();
-            menu.LoadContent();
+            _menu.Initialize();
+            _menu.LoadContent();
         }
 
         /// <summary>
@@ -62,7 +61,7 @@ namespace PlatformGame
         {
             // TODO: Add your initialization logic here
 
-            menu = new MainMenu(GraphicsDevice);
+            _menu = new MainMenu(GraphicsDevice);
 
             base.Initialize();
         }
@@ -74,7 +73,7 @@ namespace PlatformGame
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
 
@@ -83,8 +82,8 @@ namespace PlatformGame
             Resources.LoadFont(Content);
             Sounds.Load(Content);
             //Load Menu
-            menu.Initialize();
-            menu.LoadContent();
+            _menu.Initialize();
+            _menu.LoadContent();
         }
 
         /// <summary>
@@ -107,7 +106,7 @@ namespace PlatformGame
                 Exit();
 
             // TODO: Add your update logic here
-            menu.Update(gameTime, this);
+            _menu.Update(gameTime, this);
 
             base.Update(gameTime);
         }
@@ -121,7 +120,7 @@ namespace PlatformGame
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            menu.Draw(spriteBatch);
+            _menu.Draw(_spriteBatch);
 
             base.Draw(gameTime);
         }

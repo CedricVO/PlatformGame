@@ -81,7 +81,7 @@ namespace PlatformGame.SpriteFolder
 
             if (deathAnimationPlaying)
             {
-                PlayerAnimation.currentAnimation = PlayerAnimation.deathAnimation; //Speelt niet af
+                PlayerAnimation.currentAnimation = PlayerAnimation.deathAnimation;
                 if (waitSec >= 1.5)
                 {
                     isDead = true;
@@ -174,7 +174,6 @@ namespace PlatformGame.SpriteFolder
                 if (waitSec >= .3)
                 {
                     waitSec = 0;
-                    Debug.WriteLine("Nu pas terug damage");
                     immune = false;
                 }
             }
