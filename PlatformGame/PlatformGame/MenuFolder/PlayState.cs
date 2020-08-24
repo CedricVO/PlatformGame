@@ -39,7 +39,7 @@ namespace PlatformGame.MenuFolder
             player = new Player(remote);
             didgeridooSpawner = new DidgeridooSpawner();
             door = new Door();
-            this.camera = new Camera(graphicsDevice.Viewport);
+            camera = new Camera(graphicsDevice.Viewport);
             Sounds.PlayLevel1(1f);
             Sounds.PlayLevelMusic(.2f);
         }
@@ -70,7 +70,6 @@ namespace PlatformGame.MenuFolder
             }
 
             //Collision with Didgeridoos
-            #region Didgeridoo Collision
             if (_damageflag)
             {
                 foreach (var item in didgeridooSpawner.didgeridoos)
@@ -82,7 +81,6 @@ namespace PlatformGame.MenuFolder
                     }
                 }
             }
-            #endregion
 
             //Collision with Door
             if (player.Rectangle.Intersects(door.Rectangle) && _currentLevel == 2)

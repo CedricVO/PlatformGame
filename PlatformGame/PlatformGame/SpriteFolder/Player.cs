@@ -128,7 +128,6 @@ namespace PlatformGame.SpriteFolder
             }
         }
 
-        #region Didgeridoo Collision
         public bool DidgeridooCollision(Rectangle newRectangle)
         {
             if (Rectangle.Intersects(newRectangle))
@@ -138,7 +137,6 @@ namespace PlatformGame.SpriteFolder
             }
             return false;
         }
-        #endregion
 
         public override void Draw(SpriteBatch spriteBatch)
         {
