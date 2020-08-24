@@ -6,10 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using PlatformGame.FactoryFolder;
 
 namespace PlatformGame.SpriteFolder
 {
-    class DidgeridooSpawner
+    public class DidgeridooSpawner
     {
         private float _spawn = 0;
 
@@ -25,9 +26,18 @@ namespace PlatformGame.SpriteFolder
                 {
                     int velocity = random.Next(level, level * 5);
                     int positionY = random.Next(100, 1000);
-                    didgeridoos.Add(new Didgeridoo(positionY, new Vector2(velocity, 0)));
+                    didgeridoos.Add(Factory.CreateDidgeridoo(level));
                 }
             }
+        }
+        public void RemoveAllDidgeridoos()
+        {
+            int count = didgeridoos.Count;
+            didgeridoos.RemoveRange(0, count);
+        }
+        public void RemoveOneDidgeridoo(Didgeridoo didgeridoo)
+        {
+            didgeridoos.Remove(didgeridoo);
         }
         public void Draw(SpriteBatch spriteBatch)
         {

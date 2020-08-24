@@ -10,6 +10,7 @@ using PlatformGame.GameFolder;
 using PlatformGame.LevelFolder;
 using PlatformGame.SpriteFolder;
 using System.Diagnostics;
+using PlatformGame.FactoryFolder;
 
 namespace PlatformGame.MenuFolder
 {
@@ -24,22 +25,20 @@ namespace PlatformGame.MenuFolder
         Door door;
         Map map;
         Camera camera;
-        Remote remote;
         GraphicsDevice graphicsDevice;
         public PlayState(GraphicsDevice _graphicsDevice) : base(_graphicsDevice)
         {
-            this.graphicsDevice = _graphicsDevice;
+            graphicsDevice = _graphicsDevice;
         }
 
         public override void Initialize()
         {
             Sounds.StopMusic();
-            map = new Map();
-            remote = new KeyboardClass();
-            player = new Player(remote);
-            didgeridooSpawner = new DidgeridooSpawner();
-            door = new Door();
-            camera = new Camera(graphicsDevice.Viewport);
+            map = Factory.CreateMap();
+            player = Factory.CreatePlayer();
+            didgeridooSpawner = Factory.CreateDidgeridooSpawner();
+            door = Factory.CreateDoor();
+            camera = Factory.CreateCamera(graphicsDevice.Viewport);
             Sounds.PlayLevel1(1f);
             Sounds.PlayLevelMusic(.2f);
         }
@@ -76,7 +75,8 @@ namespace PlatformGame.MenuFolder
                 {
                     if (player.DidgeridooCollision(item.Rectangle))
                     {
-                        RemoveOneDidgeridoo(item);
+                        didgeridooSpawner.RemoveOneDidgeridoo(item);
+                        //didgeridooSpawner.RemoveAllDidgeridoos();
                         break;
                     }
                 }
@@ -101,7 +101,7 @@ namespace PlatformGame.MenuFolder
                 if (_waitSec >= 2)
                 {
                     _waitSec = 0;
-                    RemoveAllDidgeridoos();
+                    didgeridooSpawner.RemoveAllDidgeridoos();
                     _damageflag = !_damageflag;
                     _currentLevel++;
                     Sounds.PlayLevel2(1f);
@@ -138,17 +138,6 @@ namespace PlatformGame.MenuFolder
             didgeridooSpawner.Draw(spriteBatch);
 
             spriteBatch.End();
-        }
-
-        private void RemoveAllDidgeridoos()
-        {
-            int count = didgeridooSpawner.didgeridoos.Count;
-            didgeridooSpawner.didgeridoos.RemoveRange(0, count);
-        }
-
-        private void RemoveOneDidgeridoo(Didgeridoo didgeridoo)
-        {
-            didgeridooSpawner.didgeridoos.Remove(didgeridoo);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using PlatformGame.FactoryFolder;
 using PlatformGame.GameFolder;
 using PlatformGame.MenuFolder;
 
@@ -34,16 +35,16 @@ namespace PlatformGame
         {
             switch (gameState) {
                 case GameState.MainMenu:
-                    this._menu = new MainMenu(GraphicsDevice);
+                    this._menu = Factory.CreateMainMenu(GraphicsDevice);
                     break;
                 case GameState.PlayState:
-                    this._menu = new PlayState(GraphicsDevice);
+                    this._menu = Factory.CreatePlayState(GraphicsDevice);
                     break;
                 case GameState.GameOver:
-                    this._menu = new GameOver(GraphicsDevice);
+                    this._menu = Factory.CreateGameOver(GraphicsDevice);
                     break;
                 case GameState.Win:
-                    this._menu = new Win(GraphicsDevice);
+                    this._menu = Factory.CreateWin(GraphicsDevice);
                     break;
             }
 
@@ -61,7 +62,7 @@ namespace PlatformGame
         {
             // TODO: Add your initialization logic here
 
-            _menu = new MainMenu(GraphicsDevice);
+            _menu = Factory.CreateMainMenu(GraphicsDevice);
 
             base.Initialize();
         }

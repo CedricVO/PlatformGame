@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PlatformGame.LevelFolder
 {
-    class CollitionTiles : Tiles
+    public class CollitionTiles : Tiles
     {
         public CollitionTiles(int i, Rectangle newRectangle)
         {

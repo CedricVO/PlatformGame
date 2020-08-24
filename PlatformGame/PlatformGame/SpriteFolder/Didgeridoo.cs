@@ -9,21 +9,22 @@ using PlatformGame.GameFolder;
 
 namespace PlatformGame.SpriteFolder
 {
-    class Didgeridoo : Sprite
+    public class Didgeridoo : Sprite
     {
         private Texture2D _texture;
         private float _angle;
         private float _rotation = .1f;
 
-        public  Vector2 Position = new Vector2(1700, 0);
-        public Vector2 Velocity;
-        public Rectangle Rectangle;
+        //public Vector2 Position = new Vector2(1700, 0);
+        public Vector2 Position { get; set; }
+        public Vector2 Velocity { get; set; }
+        public Rectangle Rectangle { get; set; }
 
         public Didgeridoo(int positionY, Vector2 velocity)
         {
             Load();
 
-            Position.Y = positionY;
+            Position = new Vector2(1700, positionY);
 
             Velocity = velocity;
         }

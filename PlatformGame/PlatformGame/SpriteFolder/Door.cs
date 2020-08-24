@@ -9,17 +9,12 @@ using PlatformGame.GameFolder;
 
 namespace PlatformGame.SpriteFolder
 {
-    class Door : Sprite
+    public class Door : Sprite
     {
-        private Vector2 _position = new Vector2(1420,802); //1420,802
         private Texture2D _texture;
 
         public Rectangle Rectangle;
-        public Vector2 Position
-        {
-            get { return _position; }
-            set { _position = value; }
-        }
+        public Vector2 Position { get; set; } = new Vector2(1420, 802);
 
 
         public Door()
@@ -29,18 +24,18 @@ namespace PlatformGame.SpriteFolder
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, _position, Color.White);
+            spriteBatch.Draw(_texture, Position, Color.White);
         }
 
         public override void Load()
         {
             _texture = Resources.LoadFile["door"];
-            Rectangle = new Rectangle((int)this._position.X, (int)this._position.Y, _texture.Width, _texture.Height);
+            Rectangle = new Rectangle((int)this.Position.X, (int)this.Position.Y, _texture.Width, _texture.Height);
         }
 
         public override void Update(GameTime gameTime)
         {
-            Rectangle = new Rectangle((int)this._position.X, (int)this._position.Y, _texture.Width, _texture.Height);
+            Rectangle = new Rectangle((int)this.Position.X, (int)this.Position.Y, _texture.Width, _texture.Height);
         }
     }
 }

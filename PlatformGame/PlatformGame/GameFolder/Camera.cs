@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PlatformGame.GameFolder
 {
-    class Camera
+    public class Camera
     {
         private Matrix _transform;
         public Vector2 _center;

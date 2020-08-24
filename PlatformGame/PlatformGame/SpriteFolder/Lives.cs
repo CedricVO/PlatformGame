@@ -9,7 +9,7 @@ using PlatformGame.GameFolder;
 
 namespace PlatformGame.SpriteFolder
 {
-    class Lives
+    public class Lives
     {
         private Texture2D _texture;
         private int _lives = 3;

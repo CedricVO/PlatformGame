@@ -45,6 +45,7 @@
     <Compile Include="AnimationFolder\AnimationFrame.cs" />
     <Compile Include="AnimationFolder\PlayerAnimation.cs" />
     <Compile Include="CollisionFolder\RectangleHelper.cs" />
+    <Compile Include="FactoryFolder\Factory.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameFolder\Camera.cs" />
     <Compile Include="GameFolder\KeyboardClass.cs" />

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PlatformGame.LevelFolder
 {
-    class Level
+    public class Level
     {
         private List<CollitionTiles> _collitionTiles = new List<CollitionTiles>();
         private int _width, _height;

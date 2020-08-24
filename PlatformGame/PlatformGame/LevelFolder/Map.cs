@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PlatformGame.LevelFolder
 {
-    class Map
+    public class Map
     {
         public Level level1, level2;
 

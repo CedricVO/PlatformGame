@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PlatformGame.LevelFolder
 {
-    class Tiles
+    public class Tiles
     {
         protected Texture2D _texture;
         private Rectangle _rectangle;
