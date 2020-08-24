@@ -19,75 +19,52 @@ namespace PlatformGame.FactoryFolder
         {
             int velocity = random.Next(level, level * 5);
             int positionY = random.Next(100, 1000);
-            Didgeridoo didgeridoo = new Didgeridoo(positionY, new Vector2(velocity, 0));
-
-            return didgeridoo;
+            return new Didgeridoo(positionY, new Vector2(velocity, 0));
         }
 
         public static Player CreatePlayer()
         {
-            Player player = new Player(CreateKeyboard(), CreateLives());
-
-            return player;
+            return new Player(CreateKeyboard(), CreateLives());
         }
         public static Door CreateDoor()
         {
-            Door door = new Door();
-
-            return door;
+            return new Door();
         }
         public static Lives CreateLives()
         {
-            Lives lives = new Lives();
-
-            return lives;
+            return new Lives();
         }
         public static Remote CreateKeyboard()
         {
-            Remote keyboard = new KeyboardClass();
-
-            return keyboard;
+            return new KeyboardClass();
         }
         public static DidgeridooSpawner CreateDidgeridooSpawner()
         {
-            DidgeridooSpawner didgeridooSpawner = new DidgeridooSpawner();
-
-            return didgeridooSpawner;
+            return new DidgeridooSpawner();
         }
         public static Map CreateMap()
         {
-            Map map = new Map();
-            return map;
+            return new Map();
         }
         public static Menu CreateMainMenu(GraphicsDevice graphicsDevice)
         {
-            Menu mainMenu = new MainMenu(graphicsDevice);
-
-            return mainMenu;
+            return new MainMenu(graphicsDevice);
         }
         public static Menu CreatePlayState(GraphicsDevice graphicsDevice)
         {
-            Menu playState = new PlayState(graphicsDevice);
-
-            return playState;
+            return new PlayState(graphicsDevice);
         }
         public static Menu CreateGameOver(GraphicsDevice graphicsDevice)
         {
-            Menu gameOver = new GameOver(graphicsDevice);
-
-            return gameOver;
+            return new GameOver(graphicsDevice);
         }
         public static Menu CreateWin(GraphicsDevice graphicsDevice)
         {
-            Menu win = new Win(graphicsDevice);
-
-            return win;
+            return new Win(graphicsDevice);
         }
         public static Camera CreateCamera(Viewport viewport)
         {
-            Camera camera = new Camera(viewport);
-
-            return camera;
+            return new Camera(viewport);
         }
     }
 }
