@@ -145,15 +145,6 @@ namespace PlatformGame.SpriteFolder
             {
                 return false;
             }
-            //if (Rectangle.Intersects(newRectangle))
-            //{
-            //    _getsDamage = true;
-            //    return true;
-            //}
-            //else
-            //{
-            //    return false;
-            //}
         }
 
         public bool IsTouchingLeft(IDidgeridoo didgeridoo)
