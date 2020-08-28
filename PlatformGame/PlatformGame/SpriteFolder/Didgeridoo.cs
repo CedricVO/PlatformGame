@@ -43,7 +43,7 @@ namespace PlatformGame.SpriteFolder
             //update Rectangle every frame
             Rectangle = new Rectangle((int)this.Position.X, (int)this.Position.Y, _texture.Width, _texture.Height);
             //movement + turning
-            _angle -= _rotation;
+            //_angle -= _rotation;
             Position -= Velocity;
         }
     }

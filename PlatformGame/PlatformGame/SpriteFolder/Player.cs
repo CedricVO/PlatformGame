@@ -135,14 +135,54 @@ namespace PlatformGame.SpriteFolder
             }
         }
 
-        public bool DidgeridooCollision(Rectangle newRectangle)
+        public bool DidgeridooCollision(Didgeridoo didgeridoo)
         {
-            if (Rectangle.Intersects(newRectangle))
+            if (IsTouchingBottom(didgeridoo) || IsTouchingLeft(didgeridoo) || IsTouchingRight(didgeridoo) || IsTouchingTop(didgeridoo))
             {
                 _getsDamage = true;
                 return true;
+            } else
+            {
+                return false;
             }
-            return false;
+            //if (Rectangle.Intersects(newRectangle))
+            //{
+            //    _getsDamage = true;
+            //    return true;
+            //}
+            //else
+            //{
+            //    return false;
+            //}
+        }
+
+        public bool IsTouchingLeft(Didgeridoo didgeridoo)
+        {
+            return this.Rectangle.Right + this.Velocity.X > didgeridoo.Rectangle.Left &&
+                    this.Rectangle.Left < didgeridoo.Rectangle.Left &&
+                    this.Rectangle.Bottom > didgeridoo.Rectangle.Top &&
+                    this.Rectangle.Top < didgeridoo.Rectangle.Bottom;
+        }
+        public bool IsTouchingRight(Didgeridoo didgeridoo)
+        {
+            return this.Rectangle.Left + this.Velocity.X < didgeridoo.Rectangle.Right &&
+                    this.Rectangle.Right > didgeridoo.Rectangle.Right &&
+                    this.Rectangle.Bottom > didgeridoo.Rectangle.Top &&
+                    this.Rectangle.Top < didgeridoo.Rectangle.Bottom;
+        }
+        public bool IsTouchingTop(Didgeridoo didgeridoo)
+        {
+            return this.Rectangle.Bottom + this.Velocity.Y > didgeridoo.Rectangle.Top &&
+                    this.Rectangle.Top < didgeridoo.Rectangle.Top &&
+                    this.Rectangle.Right > didgeridoo.Rectangle.Left &&
+                    this.Rectangle.Left < didgeridoo.Rectangle.Right;
+        }
+        public bool IsTouchingBottom(Didgeridoo didgeridoo)
+        {
+            return this.Rectangle.Top + this.Velocity.Y < didgeridoo.Rectangle.Bottom &&
+                    this.Rectangle.Bottom > didgeridoo.Rectangle.Bottom &&
+                    this.Rectangle.Right > didgeridoo.Rectangle.Left &&
+                    this.Rectangle.Left < didgeridoo.Rectangle.Right;
         }
 
         public override void Draw(SpriteBatch spriteBatch)

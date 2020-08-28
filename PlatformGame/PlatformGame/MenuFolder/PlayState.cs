@@ -73,7 +73,7 @@ namespace PlatformGame.MenuFolder
             {
                 foreach (var item in didgeridooSpawner.didgeridoos)
                 {
-                    if (player.DidgeridooCollision(item.Rectangle))
+                    if (player.DidgeridooCollision(item))
                     {
                         didgeridooSpawner.RemoveOneDidgeridoo(item);
                         //didgeridooSpawner.RemoveAllDidgeridoos();
