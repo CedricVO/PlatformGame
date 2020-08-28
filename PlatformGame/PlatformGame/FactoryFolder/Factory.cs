@@ -15,7 +15,7 @@ namespace PlatformGame.FactoryFolder
     public static class Factory
     {
         static Random random = new Random();
-        public static Didgeridoo CreateDidgeridoo(int level)
+        public static IDidgeridoo CreateDidgeridoo(int level)
         {
             int velocity = random.Next(level, level * 5);
             int positionY = random.Next(100, 1000);

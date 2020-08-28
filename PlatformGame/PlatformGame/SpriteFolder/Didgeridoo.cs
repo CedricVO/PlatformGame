@@ -9,7 +9,7 @@ using PlatformGame.GameFolder;
 
 namespace PlatformGame.SpriteFolder
 {
-    public class Didgeridoo : Sprite
+    public class Didgeridoo : Sprite, IDidgeridoo
     {
         private Texture2D _texture;
         private float _angle;
@@ -43,7 +43,7 @@ namespace PlatformGame.SpriteFolder
             //update Rectangle every frame
             Rectangle = new Rectangle((int)this.Position.X, (int)this.Position.Y, _texture.Width, _texture.Height);
             //movement + turning
-            //_angle -= _rotation;
+            _angle -= _rotation;
             Position -= Velocity;
         }
     }

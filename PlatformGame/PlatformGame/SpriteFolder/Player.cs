@@ -135,7 +135,7 @@ namespace PlatformGame.SpriteFolder
             }
         }
 
-        public bool DidgeridooCollision(Didgeridoo didgeridoo)
+        public bool DidgeridooCollision(IDidgeridoo didgeridoo)
         {
             if (IsTouchingBottom(didgeridoo) || IsTouchingLeft(didgeridoo) || IsTouchingRight(didgeridoo) || IsTouchingTop(didgeridoo))
             {
@@ -156,28 +156,28 @@ namespace PlatformGame.SpriteFolder
             //}
         }
 
-        public bool IsTouchingLeft(Didgeridoo didgeridoo)
+        public bool IsTouchingLeft(IDidgeridoo didgeridoo)
         {
             return this.Rectangle.Right + this.Velocity.X > didgeridoo.Rectangle.Left &&
                     this.Rectangle.Left < didgeridoo.Rectangle.Left &&
                     this.Rectangle.Bottom > didgeridoo.Rectangle.Top &&
                     this.Rectangle.Top < didgeridoo.Rectangle.Bottom;
         }
-        public bool IsTouchingRight(Didgeridoo didgeridoo)
+        public bool IsTouchingRight(IDidgeridoo didgeridoo)
         {
             return this.Rectangle.Left + this.Velocity.X < didgeridoo.Rectangle.Right &&
                     this.Rectangle.Right > didgeridoo.Rectangle.Right &&
                     this.Rectangle.Bottom > didgeridoo.Rectangle.Top &&
                     this.Rectangle.Top < didgeridoo.Rectangle.Bottom;
         }
-        public bool IsTouchingTop(Didgeridoo didgeridoo)
+        public bool IsTouchingTop(IDidgeridoo didgeridoo)
         {
             return this.Rectangle.Bottom + this.Velocity.Y > didgeridoo.Rectangle.Top &&
                     this.Rectangle.Top < didgeridoo.Rectangle.Top &&
                     this.Rectangle.Right > didgeridoo.Rectangle.Left &&
                     this.Rectangle.Left < didgeridoo.Rectangle.Right;
         }
-        public bool IsTouchingBottom(Didgeridoo didgeridoo)
+        public bool IsTouchingBottom(IDidgeridoo didgeridoo)
         {
             return this.Rectangle.Top + this.Velocity.Y < didgeridoo.Rectangle.Bottom &&
                     this.Rectangle.Bottom > didgeridoo.Rectangle.Bottom &&

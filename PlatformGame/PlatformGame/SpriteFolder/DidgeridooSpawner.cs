@@ -14,7 +14,7 @@ namespace PlatformGame.SpriteFolder
     {
         private float _spawn = 0;
 
-        public List<Didgeridoo> didgeridoos = new List<Didgeridoo>();
+        public List<IDidgeridoo> didgeridoos = new List<IDidgeridoo>();
         Random random = new Random();
 
         public void SpawnDidgeridoos(int level)
@@ -35,7 +35,7 @@ namespace PlatformGame.SpriteFolder
             int count = didgeridoos.Count;
             didgeridoos.RemoveRange(0, count);
         }
-        public void RemoveOneDidgeridoo(Didgeridoo didgeridoo)
+        public void RemoveOneDidgeridoo(IDidgeridoo didgeridoo)
         {
             didgeridoos.Remove(didgeridoo);
         }

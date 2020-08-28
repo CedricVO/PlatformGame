@@ -66,6 +66,7 @@
     <Compile Include="SpriteFolder\Didgeridoo.cs" />
     <Compile Include="SpriteFolder\DidgeridooSpawner.cs" />
     <Compile Include="SpriteFolder\Door.cs" />
+    <Compile Include="SpriteFolder\IDidgeridoo.cs" />
     <Compile Include="SpriteFolder\Lives.cs" />
     <Compile Include="SpriteFolder\Player.cs" />
     <Compile Include="SpriteFolder\Sprite.cs" />
