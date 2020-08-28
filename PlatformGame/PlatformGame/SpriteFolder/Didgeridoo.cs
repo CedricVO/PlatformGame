@@ -15,10 +15,10 @@ namespace PlatformGame.SpriteFolder
         private float _angle;
         private float _rotation = .1f;
 
-        //public Vector2 Position = new Vector2(1700, 0);
         public Vector2 Position { get; set; }
         public Vector2 Velocity { get; set; }
         public Rectangle Rectangle { get; set; }
+
 
         public Didgeridoo(int positionY, Vector2 velocity)
         {
@@ -41,7 +41,7 @@ namespace PlatformGame.SpriteFolder
         public override void Update(GameTime gameTime)
         {
             //update Rectangle every frame
-            Rectangle = new Rectangle((int)this.Position.X, (int)this.Position.Y, _texture.Width, _texture.Height);
+            Rectangle = new Rectangle((int)this.Position.X, (int)this.Position.Y, _texture.Width/4, _texture.Height/4);
             //movement + turning
             _angle -= _rotation;
             Position -= Velocity;
